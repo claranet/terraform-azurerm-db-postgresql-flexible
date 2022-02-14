@@ -45,6 +45,18 @@ module "rg" {
   stack       = var.stack
 }
 
+module "logs" {
+  source  = "claranet/run-common/azurerm//modules/logs"
+  version = "x.x.x"
+
+  client_name         = var.client_name
+  environment         = var.environment
+  stack               = var.stack
+  location            = module.azure_region.location
+  location_short      = module.azure_region.location_short
+  resource_group_name = module.rg.resource_group_name
+}
+
 module "postgresql_flexible" {
   source  = "claranet/db-postgresql-flexible/azurerm"
   version = "x.x.x"
@@ -77,6 +89,11 @@ module "postgresql_flexible" {
   databases_collation = { mydatabase = "en-US.UTF8" }
   databases_charset   = { mydatabase = "UTF8" }
 
+  logs_destinations_ids = [
+    module.logs.logs_storage_account_id,
+    module.logs.log_analytics_workspace_id
+  ]
+
   extra_tags = {
     foo = "bar"
   }
@@ -88,20 +105,24 @@ module "postgresql_flexible" {
 
 | Name | Version |
 |------|---------|
+| azurecaf | ~> 1.1 |
 | azurerm | >= 2.7 |
 | null | >= 3.0 |
 | random | >= 3.0 |
 
 ## Modules
 
-No modules.
+| Name | Source | Version |
+|------|--------|---------|
+| diagnostics | claranet/diagnostic-settings/azurerm | 5.0.0 |
+
 
 ## Resources
 
 | Name | Type |
 |------|------|
-| [azurerm_monitor_diagnostic_setting.log_settings_log_analytics](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/monitor_diagnostic_setting) | resource |
-| [azurerm_monitor_diagnostic_setting.log_settings_storage](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/monitor_diagnostic_setting) | resource |
+| [azurecaf_name.postgresql](https://registry.terraform.io/providers/aztfmod/azurecaf/latest/docs/resources/name) | resource |
+| [azurecaf_name.postgresql_dbs](https://registry.terraform.io/providers/aztfmod/azurecaf/latest/docs/resources/name) | resource |
 | [azurerm_postgresql_flexible_server_configuration.postgresql_flexible_config](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server_configuration) | resource |
 | [azurerm_postgresql_flexible_server_database.postgresql_flexible_db](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server_database) | resource |
 | [azurerm_postgresql_flexible_server_firewall_rule.firewall_rules](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server_firewall_rule) | resource |
@@ -125,17 +146,18 @@ No modules.
 | databases\_collation | Valid PostgreSQL collation : http://www.postgresql.cn/docs/13/collation.html. - be careful about https://docs.microsoft.com/en-us/windows/win32/intl/locale-names?redirectedfrom=MSDN | `map(string)` | `{}` | no |
 | databases\_names | List of databases names to create. | `list(string)` | n/a | yes |
 | delegated\_subnet\_id | Id of the subnet to create the PostgreSQL Flexible Server. (Should not have any resource deployed in) | `string` | n/a | no |
-| enable\_logs\_to\_log\_analytics | Boolean flag to specify whether the logs should be sent to Log Analytics. | `bool` | `false` | no |
-| enable\_logs\_to\_storage | Boolean flag to specify whether the logs should be sent to the Storage Account. | `bool` | `false` | no |
 | environment | Name of application's environnement. | `string` | n/a | yes |
 | extra\_tags | Map of custom tags. | `map(string)` | `{}` | no |
 | geo\_redundant\_backup\_enabled | Enable Geo Redundant Backup for the PostgreSQL Flexible Server. | `bool` | `true` | no |
 | location | Azure location. | `string` | n/a | yes |
 | location\_short | Short string for Azure location. | `string` | n/a | yes |
-| logs\_log\_analytics\_workspace\_id | Log Analytics Workspace id for logs. | `string` | `""` | no |
+| logs\_categories | Log categories to send to destinations. | `list(string)` | `null` | no |
+| logs\_destinations\_ids | List of destination resources Ids for logs diagnostics destination. Can be Storage Account, Log Analytics Workspace and Event Hub. No more than one of each can be set. Empty list to disable logging. | `list(string)` | n/a | yes |
+| logs\_metrics\_categories | Metrics categories to send to destinations. | `list(string)` | `null` | no |
+| logs\_retention\_days | Number of days to keep logs on storage account | `number` | `30` | no |
+| name\_prefix | Optional prefix for the generated name | `string` | `""` | no |
+| name\_suffix | Optional suffix for the generated name | `string` | `""` | no |
 | maintenance\_window | Map of maintenance window configuration | `map(number)` | `{}` | no |
-| logs\_storage\_account\_id | Storage Account id for logs. | `string` | `""` | no |
-| name\_prefix | Optional prefix for PostgreSQL server name. | `string` | `""` | no |
 | postgresql\_configurations | PostgreSQL configurations to enable. | `map(string)` | `{}` | no |
 | postgresql\_version | Version of PostgreSQL Flexible Server. | `number` | `` | yes |
 | private\_dns\_zone\_id | ID of the private DNS zone to create The PostgreSQL Flexible Server. | `string` | `""` | no |
@@ -145,6 +167,8 @@ No modules.
 | standby_zone | Specify availability-zone to enable high_availability and create standby PostgreSQL Flexible Server. | `number` | 2 | no |
 | storage\_mb | Storage allowed for PostgresSQL Flexible server. Possible values : https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server#storage_mb. | `number` | `32768` | no |
 | tier | Tier for PostgreSQL Flexible server sku : https://docs.microsoft.com/en-us/azure/postgresql/flexible-server/concepts-compute-storage. Possible values are: GeneralPurpose, Burstable, MemoryOptimized. | `string` | `"GeneralPurpose"` | no |
+| use\_caf\_naming | Use the Azure CAF naming provider to generate default resource name. `custom_server_name` override this if set. Legacy default name is used if this is set to `false`. | `bool` | `true` | no |
+| use\_caf\_naming\_for\_databases | Use the Azure CAF naming provider to generate databases name. | `bool` | `false` | no |
 | vnet\_rules | Map of vnet rules to create. | `map(string)` | `{}` | no |
 | zone | Specify availability-zone for PostgreSQL Flexible main Server. | `number` | `1` | no |
 

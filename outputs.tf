@@ -1,6 +1,6 @@
 output "postgresql_flexible_administrator_login" {
   description = "Administrator login for PostgreSQL server."
-  value       = "${azurerm_postgresql_flexible_server.postgresql_flexible_server.administrator_login}"
+  value       = azurerm_postgresql_flexible_server.postgresql_flexible_server.administrator_login
   sensitive   = true
 }
 

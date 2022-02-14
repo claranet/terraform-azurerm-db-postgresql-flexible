@@ -33,19 +33,19 @@ variable "location_short" {
 variable "tier" {
   description = "Tier for PostgreSQL Flexible server sku : https://docs.microsoft.com/en-us/azure/postgresql/flexible-server/concepts-compute-storage. Possible values are: GeneralPurpose, Burstable, MemoryOptimized."
   type        = string
-	default     = "GeneralPurpose"
+  default     = "GeneralPurpose"
 }
 
 variable "size" {
   description = "Size for PostgreSQL Flexible server sku : https://docs.microsoft.com/en-us/azure/postgresql/flexible-server/concepts-compute-storage."
   type        = string
-	default     = "D2ds_v4"
+  default     = "D2ds_v4"
 }
 
 variable "storage_mb" {
-	description = "Storage allowed for PostgresSQL Flexible server. Possible values : https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server#storage_mb."
-  type				= number
-	default 		= 32768
+  description = "Storage allowed for PostgresSQL Flexible server. Possible values : https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server#storage_mb."
+  type        = number
+  default     = 32768
 }
 
 variable "postgre_version" {
@@ -60,8 +60,8 @@ variable "zone" {
 }
 
 variable "standby_zone" {
-	description = "Specify availability-zone to enable high_availability and create standby PostgreSQL Flexible Server."
-	type				= number
+  description = "Specify availability-zone to enable high_availability and create standby PostgreSQL Flexible Server."
+  type        = number
   default     = 2
 }
 
@@ -76,15 +76,15 @@ variable "administrator_password" {
 }
 
 variable "backup_retention_days" {
-	description	= "Backup retention days for the PostgreSQL Flexible Server (Between 7 and 35 days)."
-	type				= number
-	default 		= 7
+  description = "Backup retention days for the PostgreSQL Flexible Server (Between 7 and 35 days)."
+  type        = number
+  default     = 7
 }
 
 variable "geo_redundant_backup_enabled" {
-	description	= "Enable Geo Redundant Backup for the PostgreSQL Flexible Server."
-	type				= bool
-	default 		= false
+  description = "Enable Geo Redundant Backup for the PostgreSQL Flexible Server."
+  type        = bool
+  default     = false
 }
 
 variable "maintenance_window" {
@@ -102,7 +102,7 @@ variable "private_dns_zone_id" {
 variable "delegated_subnet_id" {
   description = "Id of the subnet to create the PostgreSQL Flexible Server. (Should not have any resource deployed in)"
   type        = string
-  default     = null 
+  default     = null
 }
 
 variable "databases_names" {
@@ -113,18 +113,18 @@ variable "databases_names" {
 variable "databases_charset" {
   description = "Valid PostgreSQL charset : https://www.postgresql.org/docs/current/multibyte.html#CHARSET-TABLE"
   type        = map(string)
-	default     = {}
+  default     = {}
 }
 
 variable "databases_collation" {
   description = "Valid PostgreSQL collation : http://www.postgresql.cn/docs/13/collation.html - be careful about https://docs.microsoft.com/en-us/windows/win32/intl/locale-names?redirectedfrom=MSDN"
   type        = map(string)
-	default     = {}
+  default     = {}
 }
 
 variable "postgresql_configurations" {
   description = "PostgreSQL configurations to enable."
-	type        = map(string)
+  type        = map(string)
   default     = {}
 }
 

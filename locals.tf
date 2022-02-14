@@ -1,5 +1,5 @@
 locals {
-	tier_map = {
+  tier_map = {
     "GeneralPurpose"  = "GP"
     "Burstable"       = "B"
     "MemoryOptimized" = "MO"
