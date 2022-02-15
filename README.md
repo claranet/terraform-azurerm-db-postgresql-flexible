@@ -69,10 +69,10 @@ module "postgresql_flexible" {
 
   resource_group_name = module.rg.resource_group_name
 
-  tier            = "GeneralPurpose"
-  size            = "D2s_v3"
-  storage_mb      = 32768
-  postgre_version = 13
+  tier               = "GeneralPurpose"
+  size               = "D2s_v3"
+  storage_mb         = 32768
+  postgresql_version = 13
 
   allowed_cidrs = {
     "1" = "10.0.0.0/24"
@@ -170,7 +170,7 @@ module "postgresql_flexible" {
 | resource\_group\_name | Name of the application ressource group, herited from infra module. | `string` | n/a | yes |
 | size | Size for PostgreSQL Flexible server sku : https://docs.microsoft.com/en-us/azure/postgresql/flexible-server/concepts-compute-storage. | `string` | `"D2ds_v4"` | no |
 | stack | Name of application stack. | `string` | n/a | yes |
-| standby\_zone | Specify availability-zone to enable high_availability and create standby PostgreSQL Flexible Server. (Null to disable high-availability) | `number` | `2` | no |
+| standby\_zone | Specify availability-zone to enable high\_availability and create standby PostgreSQL Flexible Server. (Null to disable high-availability) | `number` | `2` | no |
 | storage\_mb | Storage allowed for PostgresSQL Flexible server. Possible values : https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server#storage_mb. | `number` | `32768` | no |
 | tier | Tier for PostgreSQL Flexible server sku : https://docs.microsoft.com/en-us/azure/postgresql/flexible-server/concepts-compute-storage. Possible values are: GeneralPurpose, Burstable, MemoryOptimized. | `string` | `"GeneralPurpose"` | no |
 | use\_caf\_naming | Use the Azure CAF naming provider to generate default resource name. `custom_server_name` override this if set. Legacy default name is used if this is set to `false`. | `bool` | `true` | no |
