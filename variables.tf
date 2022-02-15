@@ -48,7 +48,7 @@ variable "storage_mb" {
   default     = 32768
 }
 
-variable "postgre_version" {
+variable "postgresql_version" {
   description = "Version of PostgreSQL Flexible Server. Possible values are : https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server#version."
   type        = number
   default     = 13

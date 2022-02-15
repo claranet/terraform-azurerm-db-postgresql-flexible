@@ -122,17 +122,16 @@ module "postgresql_flexible" {
 |------|--------|---------|
 | diagnostics | claranet/diagnostic-settings/azurerm | 5.0.0 |
 
-
 ## Resources
 
 | Name | Type |
 |------|------|
-| [azurecaf_name.postgresql](https://registry.terraform.io/providers/aztfmod/azurecaf/latest/docs/resources/azurecaf_name) | resource |
-| [azurecaf_name.postgresql_dbs](https://registry.terraform.io/providers/aztfmod/azurecaf/latest/docs/resources/azurecaf_name) | resource |
+| [azurecaf_name.postgresql](https://registry.terraform.io/providers/aztfmod/azurecaf/latest/docs/resources/name) | resource |
+| [azurecaf_name.postgresql_dbs](https://registry.terraform.io/providers/aztfmod/azurecaf/latest/docs/resources/name) | resource |
+| [azurerm_postgresql_flexible_server.postgresql_flexible_server](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server) | resource |
 | [azurerm_postgresql_flexible_server_configuration.postgresql_flexible_config](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server_configuration) | resource |
 | [azurerm_postgresql_flexible_server_database.postgresql_flexible_db](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server_database) | resource |
 | [azurerm_postgresql_flexible_server_firewall_rule.firewall_rules](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server_firewall_rule) | resource |
-| [azurerm_postgresql_flexible_server.postgresql_flexible_server](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server) | resource |
 | [azurerm_postgresql_virtual_network_rule.vnet_rules](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_virtual_network_rule) | resource |
 | [null_resource.db_users](https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource) | resource |
 | [random_password.db_passwords](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/password) | resource |
@@ -149,8 +148,8 @@ module "postgresql_flexible" {
 | create\_databases\_users | True to create a user named <db>\_user per database with generated password and role db\_owner. | `bool` | `true` | no |
 | custom\_diagnostic\_settings\_name | Custom name of the diagnostics settings, name will be 'default' if not set. | `string` | `"default"` | no |
 | custom\_server\_name | Custom Server Name identifier. | `string` | `""` | no |
-| databases\_charset | Valid PostgreSQL charset : https://www.postgresql.org/docs/current/multibyte.html#CHARSET-TABLE. | `map(string)` | `{}` | no |
-| databases\_collation | Valid PostgreSQL collation : http://www.postgresql.cn/docs/13/collation.html. - be careful about https://docs.microsoft.com/en-us/windows/win32/intl/locale-names?redirectedfrom=MSDN | `map(string)` | `{}` | no |
+| databases\_charset | Valid PostgreSQL charset : https://www.postgresql.org/docs/current/multibyte.html#CHARSET-TABLE | `map(string)` | `{}` | no |
+| databases\_collation | Valid PostgreSQL collation : http://www.postgresql.cn/docs/13/collation.html - be careful about https://docs.microsoft.com/en-us/windows/win32/intl/locale-names?redirectedfrom=MSDN | `map(string)` | `{}` | no |
 | databases\_names | List of databases names to create. | `list(string)` | n/a | yes |
 | delegated\_subnet\_id | Id of the subnet to create the PostgreSQL Flexible Server. (Should not have any resource deployed in) | `string` | `null` | no |
 | environment | Name of application's environnement. | `string` | n/a | yes |
@@ -167,11 +166,11 @@ module "postgresql_flexible" {
 | name\_suffix | Optional suffix for the generated name. | `string` | `""` | no |
 | postgresql\_configurations | PostgreSQL configurations to enable. | `map(string)` | `{}` | no |
 | postgresql\_version | Version of PostgreSQL Flexible Server. Possible values are : https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server#version. | `number` | `13` | no |
-| private\_dns\_zone\_id | ID of the private DNS zone to create The PostgreSQL Flexible Server. | `string` | `null` | no |
+| private\_dns\_zone\_id | ID of the private DNS zone to create the PostgreSQL Flexible Server. | `string` | `null` | no |
 | resource\_group\_name | Name of the application ressource group, herited from infra module. | `string` | n/a | yes |
-| size | Size for PostgreSQL Flexible server sku - number of vCores : https://docs.microsoft.com/en-us/azure/postgresql/flexible-server/concepts-compute-storage. | `string` |`"D2ds_v4"` | no |
+| size | Size for PostgreSQL Flexible server sku : https://docs.microsoft.com/en-us/azure/postgresql/flexible-server/concepts-compute-storage. | `string` | `"D2ds_v4"` | no |
 | stack | Name of application stack. | `string` | n/a | yes |
-| standby_zone | Specify availability-zone to enable high_availability and create standby PostgreSQL Flexible Server. (Null to disable high-availability) | `number` | `2` | no |
+| standby\_zone | Specify availability-zone to enable high_availability and create standby PostgreSQL Flexible Server. (Null to disable high-availability) | `number` | `2` | no |
 | storage\_mb | Storage allowed for PostgresSQL Flexible server. Possible values : https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server#storage_mb. | `number` | `32768` | no |
 | tier | Tier for PostgreSQL Flexible server sku : https://docs.microsoft.com/en-us/azure/postgresql/flexible-server/concepts-compute-storage. Possible values are: GeneralPurpose, Burstable, MemoryOptimized. | `string` | `"GeneralPurpose"` | no |
 | use\_caf\_naming | Use the Azure CAF naming provider to generate default resource name. `custom_server_name` override this if set. Legacy default name is used if this is set to `false`. | `bool` | `true` | no |
@@ -187,7 +186,7 @@ module "postgresql_flexible" {
 | postgresql\_flexible\_configurations | The map of all postgresql configurations set. |
 | postgresql\_flexible\_database\_ids | The map of all database resource ids. |
 | postgresql\_flexible\_databases\_names | Map of databases names. |
-| postgresql\_flexible\_firewall\_rules | Map of PostgreSQL created rules. |
+| postgresql\_flexible\_vnet\_rules | The map of all vnet rules |
 | postgresql\_flexible\_fqdn | FQDN of the PostgreSQL server. |
 | postgresql\_flexible\_server\_id | PostgreSQL server ID. |
 | postgresql\_users\_passwords | Map of passwords for databases users. |
