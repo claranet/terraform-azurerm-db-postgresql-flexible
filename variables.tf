@@ -49,8 +49,9 @@ variable "storage_mb" {
 }
 
 variable "postgre_version" {
-  description = "Version of PostgreSQL Flexible Server."
+  description = "Version of PostgreSQL Flexible Server. Possible values are : https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server#version."
   type        = number
+  default     = 13
 }
 
 variable "zone" {
@@ -60,7 +61,7 @@ variable "zone" {
 }
 
 variable "standby_zone" {
-  description = "Specify availability-zone to enable high_availability and create standby PostgreSQL Flexible Server."
+  description = "Specify availability-zone to enable high_availability and create standby PostgreSQL Flexible Server. (Null to disable high-availability)"
   type        = number
   default     = 2
 }
@@ -88,13 +89,13 @@ variable "geo_redundant_backup_enabled" {
 }
 
 variable "maintenance_window" {
-  description = "Map of maintenance window configuration"
+  description = "Map of maintenance window configuration."
   type        = map(number)
   default     = null
 }
 
 variable "private_dns_zone_id" {
-  description = "ID of the private DNS zone to create The PostgreSQL Flexible Server."
+  description = "ID of the private DNS zone to create the PostgreSQL Flexible Server."
   type        = string
   default     = null
 }
@@ -133,7 +134,6 @@ variable "postgresql_configurations" {
 variable "allowed_cidrs" {
   description = "Map of authorized cidrs."
   type        = map(string)
-  default     = {}
 }
 
 # --------
