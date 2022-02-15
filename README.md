@@ -69,10 +69,10 @@ module "postgresql_flexible" {
 
   resource_group_name = module.rg.resource_group_name
 
-  tier        = "GeneralPurpose"
-  size        = "D2s_v3"
-  storage_mb  = 32768
-  version     = 13
+  tier            = "GeneralPurpose"
+  size            = "D2s_v3"
+  storage_mb      = 32768
+  postgre_version = 13
 
   allowed_cidrs = {
     "1" = "10.0.0.0/24"
@@ -82,11 +82,11 @@ module "postgresql_flexible" {
   backup_retention_days        = 14
   geo_redundant_backup_enabled = true
 
-  administrator_login          = var.administrator_login
-  administrator_password       = var.administrator_password
+  administrator_login    = var.administrator_login
+  administrator_password = var.administrator_password
 
   databases_names     = ["mydatabase"]
-  databases_collation = { mydatabase = "en-US.UTF8" }
+  databases_collation = { mydatabase = "en_US.UTF8" }
   databases_charset   = { mydatabase = "UTF8" }
 
   maintenance_window = {
