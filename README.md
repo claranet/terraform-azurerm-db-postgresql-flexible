@@ -186,11 +186,11 @@ module "postgresql_flexible" {
 | postgresql\_flexible\_configurations | The map of all postgresql configurations set. |
 | postgresql\_flexible\_database\_ids | The map of all database resource ids. |
 | postgresql\_flexible\_databases\_names | Map of databases names. |
-| postgresql\_flexible\_vnet\_rules | The map of all vnet rules |
+| postgresql\_flexible\_firewall\_rules | Map of PostgreSQL created rules. |
 | postgresql\_flexible\_fqdn | FQDN of the PostgreSQL server. |
 | postgresql\_flexible\_server\_id | PostgreSQL server ID. |
+| postgresql\_flexible\_vnet\_rules | The map of all vnet rules |
 | postgresql\_users\_passwords | Map of passwords for databases users. |
-| postgresql\_flexible\_vnet\_rules | The map of all vnet rules. |
 <!-- END_TF_DOCS -->
 ## Related documentation
 
