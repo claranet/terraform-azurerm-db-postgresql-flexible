@@ -112,7 +112,7 @@ module "postgresql_flexible" {
 | Name | Version |
 |------|---------|
 | azurecaf | ~> 1.1 |
-| azurerm | >= 2.71 |
+| azurerm | >= 2.91 |
 | null | >= 3.0 |
 | random | >= 3.0 |
 
