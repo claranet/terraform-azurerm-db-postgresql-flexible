@@ -5,11 +5,6 @@
 This module creates an [Azure PostgreSQL Flexible server](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server) with [databases](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server_database) along with logging activated  [firewall rules](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server_firewall_rule) and [virtual network rules](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_virtual_network_rule).
 A user is created for each databases created with this module. This module does not allow users to create new objects in the public schema regarding the [CVE-2018-1058](https://wiki.postgresql.org/wiki/A_Guide_to_CVE-2018-1058%3A_Protect_Your_Search_Path#Do_not_allow_users_to_create_new_objects_in_the_public_schema).
 
-## Requirements
-
-* [Ansible](https://docs.ansible.com/ansible/latest/index.html) >= 2.4
-* Library [libpq-dev](https://pypi.org/project/libpq-dev/) and PostgreSQL adapter [python-psycopg2](https://pypi.org/project/psycopg2/)
-
 <!-- BEGIN_TF_DOCS -->
 ## Global versioning rule for Claranet Azure modules
 
@@ -111,9 +106,9 @@ module "postgresql_flexible" {
 
 | Name | Version |
 |------|---------|
-| azurecaf | ~> 1.1 |
+| azurecaf | ~> 1.2.13 |
 | azurerm | >= 2.91 |
-| null | >= 3.0 |
+| postgresql.create\_users | >= 1.14 |
 | random | >= 3.0 |
 
 ## Modules
@@ -126,14 +121,18 @@ module "postgresql_flexible" {
 
 | Name | Type |
 |------|------|
-| [azurecaf_name.postgresql](https://registry.terraform.io/providers/aztfmod/azurecaf/latest/docs/resources/name) | resource |
-| [azurecaf_name.postgresql_dbs](https://registry.terraform.io/providers/aztfmod/azurecaf/latest/docs/resources/name) | resource |
+| [azurecaf_name.postgresql_flexible_dbs](https://registry.terraform.io/providers/aztfmod/azurecaf/latest/docs/resources/name) | resource |
+| [azurecaf_name.postgresql_flexible_server](https://registry.terraform.io/providers/aztfmod/azurecaf/latest/docs/resources/name) | resource |
 | [azurerm_postgresql_flexible_server.postgresql_flexible_server](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server) | resource |
 | [azurerm_postgresql_flexible_server_configuration.postgresql_flexible_config](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server_configuration) | resource |
 | [azurerm_postgresql_flexible_server_database.postgresql_flexible_db](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server_database) | resource |
 | [azurerm_postgresql_flexible_server_firewall_rule.firewall_rules](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server_firewall_rule) | resource |
-| [azurerm_postgresql_virtual_network_rule.vnet_rules](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_virtual_network_rule) | resource |
-| [null_resource.db_users](https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource) | resource |
+| [postgresql_default_privileges.user_functions_priviliges](https://registry.terraform.io/providers/cyrilgdn/postgresql/latest/docs/resources/default_privileges) | resource |
+| [postgresql_default_privileges.user_sequences_priviliges](https://registry.terraform.io/providers/cyrilgdn/postgresql/latest/docs/resources/default_privileges) | resource |
+| [postgresql_default_privileges.user_tables_privileges](https://registry.terraform.io/providers/cyrilgdn/postgresql/latest/docs/resources/default_privileges) | resource |
+| [postgresql_grant.revoke_public](https://registry.terraform.io/providers/cyrilgdn/postgresql/latest/docs/resources/grant) | resource |
+| [postgresql_role.db_user](https://registry.terraform.io/providers/cyrilgdn/postgresql/latest/docs/resources/role) | resource |
+| [postgresql_schema.db_schema](https://registry.terraform.io/providers/cyrilgdn/postgresql/latest/docs/resources/schema) | resource |
 | [random_password.db_passwords](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/password) | resource |
 
 ## Inputs
@@ -175,7 +174,6 @@ module "postgresql_flexible" {
 | tier | Tier for PostgreSQL Flexible server sku : https://docs.microsoft.com/en-us/azure/postgresql/flexible-server/concepts-compute-storage. Possible values are: GeneralPurpose, Burstable, MemoryOptimized. | `string` | `"GeneralPurpose"` | no |
 | use\_caf\_naming | Use the Azure CAF naming provider to generate default resource name. `custom_server_name` override this if set. Legacy default name is used if this is set to `false`. | `bool` | `true` | no |
 | use\_caf\_naming\_for\_databases | Use the Azure CAF naming provider to generate databases name. | `bool` | `false` | no |
-| vnet\_rules | Map of vnet rules to create. | `map(string)` | `{}` | no |
 | zone | Specify availability-zone for PostgreSQL Flexible main Server. | `number` | `1` | no |
 
 ## Outputs
@@ -189,8 +187,7 @@ module "postgresql_flexible" {
 | postgresql\_flexible\_firewall\_rules | Map of PostgreSQL created rules. |
 | postgresql\_flexible\_fqdn | FQDN of the PostgreSQL server. |
 | postgresql\_flexible\_server\_id | PostgreSQL server ID. |
-| postgresql\_flexible\_vnet\_rules | The map of all vnet rules |
-| postgresql\_users\_passwords | Map of passwords for databases users. |
+| postgresql\_users\_credentials | Map of passwords for databases users. |
 <!-- END_TF_DOCS -->
 ## Related documentation
 

@@ -143,11 +143,3 @@ variable "create_databases_users" {
   type        = bool
   default     = true
 }
-
-# --------
-# r-vnetrules.tf
-variable "vnet_rules" {
-  description = "Map of vnet rules to create."
-  type        = map(string)
-  default     = {}
-}
