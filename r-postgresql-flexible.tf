@@ -10,7 +10,7 @@ resource "azurerm_postgresql_flexible_server" "postgresql_flexible_server" {
   zone = var.zone
 
   dynamic "high_availability" {
-    for_each = toset(var.standby_zone != null ? [var.standby_zone] : [])
+    for_each = var.standby_zone != null ? toset([var.standby_zone]) : toset([])
 
     content {
       mode                      = "ZoneRedundant"
@@ -25,7 +25,7 @@ resource "azurerm_postgresql_flexible_server" "postgresql_flexible_server" {
   geo_redundant_backup_enabled = var.geo_redundant_backup_enabled
 
   dynamic "maintenance_window" {
-    for_each = toset(var.maintenance_window != null ? [var.maintenance_window] : [])
+    for_each = var.maintenance_window != null ? toset([var.maintenance_window]) : toset([])
 
     content {
       day_of_week  = lookup(maintenance_window.value, "day_of_week", 0)

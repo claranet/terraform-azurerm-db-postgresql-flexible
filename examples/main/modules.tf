@@ -60,9 +60,9 @@ module "postgresql_flexible" {
   databases_charset   = { mydatabase = "UTF8" }
 
   maintenance_window = {
-    "day_of_week" : 3
-    "start_hour" : 3
-    "start_minute" : 0
+    day_of_week  = 3
+    start_hour   = 3
+    start_minute = 0
   }
 
   logs_destinations_ids = [
