@@ -1,4 +1,4 @@
 # Unreleased
 
 Added
-	* AZ-602: First release
+  * AZ-602: First release
