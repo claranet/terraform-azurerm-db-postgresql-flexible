@@ -17,7 +17,7 @@ resource "postgresql_role" "db_user" {
 
   provider = postgresql.create_users
 
-  depends_on = [azurerm_postgresql_flexible_server_database.postgresql_flexible_db]
+  depends_on = [azurerm_postgresql_flexible_server_database.postgresql_flexible_db, azurerm_postgresql_flexible_server_firewall_rule.firewall_rules]
 }
 
 resource "postgresql_grant" "revoke_public" {
@@ -30,6 +30,8 @@ resource "postgresql_grant" "revoke_public" {
   privileges  = []
 
   provider = postgresql.create_users
+
+  depends_on = [azurerm_postgresql_flexible_server_database.postgresql_flexible_db, azurerm_postgresql_flexible_server_firewall_rule.firewall_rules]
 }
 
 resource "postgresql_schema" "db_schema" {

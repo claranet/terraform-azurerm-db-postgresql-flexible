@@ -10,7 +10,7 @@ resource "azurerm_postgresql_flexible_server" "postgresql_flexible_server" {
   zone = var.zone
 
   dynamic "high_availability" {
-    for_each = var.standby_zone != null ? toset([var.standby_zone]) : toset([])
+    for_each = var.standby_zone != null && var.tier != "Burstable" ? toset([var.standby_zone]) : toset([])
 
     content {
       mode                      = "ZoneRedundant"

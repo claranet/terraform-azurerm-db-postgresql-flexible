@@ -28,8 +28,6 @@ variable "location_short" {
   type        = string
 }
 
-# --------
-# r-postgresql-flexible.tf
 variable "tier" {
   description = "Tier for PostgreSQL Flexible server sku : https://docs.microsoft.com/en-us/azure/postgresql/flexible-server/concepts-compute-storage. Possible values are: GeneralPurpose, Burstable, MemoryOptimized."
   type        = string
@@ -129,15 +127,11 @@ variable "postgresql_configurations" {
   default     = {}
 }
 
-# --------
-# r-firewall.tf
 variable "allowed_cidrs" {
   description = "Map of authorized cidrs."
   type        = map(string)
 }
 
-# --------
-# r-users.tf
 variable "create_databases_users" {
   description = "True to create a user named <db>_user per database with generated password and role db_owner."
   type        = bool
