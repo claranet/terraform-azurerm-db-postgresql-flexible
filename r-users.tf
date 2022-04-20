@@ -61,7 +61,6 @@ resource "postgresql_default_privileges" "user_tables_privileges" {
     "TRUNCATE",
     "REFERENCES",
     "TRIGGER",
-    "TEMPORARY",
   ]
 
   provider = postgresql.create_users
