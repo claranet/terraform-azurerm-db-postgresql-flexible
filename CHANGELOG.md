@@ -1,4 +1,4 @@
-# Unreleased
+# v5.0.1 - 2022-04-20
 
 Fixed
   * AZ-725: Remove `TEMPORARY` privilege to user table privileges.
