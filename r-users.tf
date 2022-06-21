@@ -13,7 +13,7 @@ resource "postgresql_role" "db_user" {
   password    = random_password.db_passwords[each.value].result
   create_role = true
   roles       = []
-  search_path = []
+  search_path = concat([each.value, "$user"], lookup(var.database_users_search_path, each.value, []))
 
   provider = postgresql.create_users
 
