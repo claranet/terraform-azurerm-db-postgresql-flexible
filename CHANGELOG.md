@@ -1,4 +1,4 @@
-# Unreleased - 2022-06-22
+# v5.1.0 - 2022-06-24
 
 Added
   * AZ-787: Edit user search_path
