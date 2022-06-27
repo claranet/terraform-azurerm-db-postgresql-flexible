@@ -181,7 +181,8 @@ module "postgresql_flexible" {
 
 | Name | Description |
 |------|-------------|
-| postgresql\_flexible\_administrator\_login | Administrator login for PostgreSQL server. |
+| postgresql\_flexible\_administrator\_login | Administrator login for PostgreSQL Flexible server. |
+| postgresql\_flexible\_administrator\_password | Administrator password for PostgreSQL Flexible server. |
 | postgresql\_flexible\_configurations | The map of all postgresql configurations set. |
 | postgresql\_flexible\_database\_ids | The map of all database resource ids. |
 | postgresql\_flexible\_databases\_names | Map of databases names. |
