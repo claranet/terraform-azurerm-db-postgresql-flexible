@@ -189,6 +189,7 @@ module "postgresql_flexible" {
 | postgresql\_flexible\_fqdn | FQDN of the PostgreSQL server. |
 | postgresql\_flexible\_server\_id | PostgreSQL server ID. |
 | postgresql\_users\_credentials | Map of passwords for databases users. |
+| terraform\_module | Information about this Terraform module |
 <!-- END_TF_DOCS -->
 ## Related documentation
 
