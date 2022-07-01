@@ -1,6 +1,12 @@
 output "postgresql_flexible_administrator_login" {
-  description = "Administrator login for PostgreSQL server."
+  description = "Administrator login for PostgreSQL Flexible server."
   value       = azurerm_postgresql_flexible_server.postgresql_flexible_server.administrator_login
+  sensitive   = true
+}
+
+output "postgresql_flexible_administrator_password" {
+  description = "Administrator password for PostgreSQL Flexible server."
+  value       = var.administrator_password
   sensitive   = true
 }
 
