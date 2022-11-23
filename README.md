@@ -107,8 +107,8 @@ module "postgresql_flexible" {
 
 | Name | Version |
 |------|---------|
-| azurecaf | ~> 1.2.13 |
-| azurerm | >= 2.91 |
+| azurecaf | ~> 1.2, >= 1.2.22 |
+| azurerm | >= 3.22 |
 | postgresql.create\_users | >= 1.14 |
 | random | >= 3.0 |
 
