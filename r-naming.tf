@@ -1,4 +1,4 @@
-resource "azurecaf_name" "postgresql_flexible_server" {
+data "azurecaf_name" "postgresql_flexible_server" {
   name          = var.stack
   resource_type = "azurerm_postgresql_flexible_server"
   prefixes      = var.name_prefix == "" ? null : [local.name_prefix]
@@ -8,7 +8,7 @@ resource "azurecaf_name" "postgresql_flexible_server" {
   separator     = "-"
 }
 
-resource "azurecaf_name" "postgresql_flexible_dbs" {
+data "azurecaf_name" "postgresql_flexible_dbs" {
   for_each = toset(var.databases_names)
 
   name          = var.stack
