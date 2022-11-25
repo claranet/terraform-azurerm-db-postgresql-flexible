@@ -1,4 +1,7 @@
-# Unreleased
+# v6.0.0 - 2022-11-25
+
+Breaking
+  * AZ-839: Require Terraform 1.1+ and AzureRM provider `v3.22+`
 
 Changed
   * AZ-908: Use the new data source for CAF naming (instead of resource)
@@ -11,7 +14,7 @@ Added
 # v5.1.0 - 2022-06-24
 
 Added
-  * AZ-787: Edit user search_path
+  * AZ-787: Edit user `search_path`
 
 # v5.0.1 - 2022-04-20
 
