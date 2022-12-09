@@ -1,3 +1,8 @@
+# Unreleased
+
+Added
+  * AZ-936: Add for_each condition on firewall rules creation
+
 # v6.0.0 - 2022-11-25
 
 Breaking
