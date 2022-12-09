@@ -87,9 +87,12 @@ module "postgresql_flexible" {
   administrator_login    = "azureadmin"
   administrator_password = random_password.admin_password.result
 
-  databases_names     = ["mydatabase"]
-  databases_collation = { mydatabase = "en_US.UTF8" }
-  databases_charset   = { mydatabase = "UTF8" }
+  databases = {
+    mydatabase = {
+      collation = "en_US.UTF8"
+      charset   = "UTF8"
+    }
+  }
 
   maintenance_window = {
     day_of_week  = 3
@@ -176,9 +179,7 @@ module "postgresql_configuration" {
 | client\_name | Name of client. | `string` | n/a | yes |
 | custom\_diagnostic\_settings\_name | Custom name of the diagnostics settings, name will be 'default' if not set. | `string` | `"default"` | no |
 | custom\_server\_name | Custom Server Name identifier. | `string` | `""` | no |
-| databases\_charset | Valid PostgreSQL charset : https://www.postgresql.org/docs/current/multibyte.html#CHARSET-TABLE | `map(string)` | `{}` | no |
-| databases\_collation | Valid PostgreSQL collation : http://www.postgresql.cn/docs/13/collation.html - be careful about https://docs.microsoft.com/en-us/windows/win32/intl/locale-names?redirectedfrom=MSDN | `map(string)` | `{}` | no |
-| databases\_names | List of databases names to create. | `list(string)` | n/a | yes |
+| databases | Map of databases configurations with database name as key and following available configuration option:<br>   *  (optional) charset: Valid PostgreSQL charset : https://www.postgresql.org/docs/current/multibyte.html#CHARSET-TABLE<br>   *  (optional) collation: Valid PostgreSQL collation : http://www.postgresql.cn/docs/13/collation.html - be careful about https://docs.microsoft.com/en-us/windows/win32/intl/locale-names?redirectedfrom=MSDN | <pre>map(object({<br>    charset   = optional(string, "UTF8")<br>    collation = optional(string, "en_US.UTF8")<br>  }))</pre> | `{}` | no |
 | delegated\_subnet\_id | Id of the subnet to create the PostgreSQL Flexible Server. (Should not have any resource deployed in) | `string` | `null` | no |
 | environment | Name of application's environnement. | `string` | n/a | yes |
 | extra\_tags | Map of custom tags. | `map(string)` | `{}` | no |

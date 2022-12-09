@@ -60,9 +60,12 @@ module "postgresql_flexible" {
   administrator_login    = "azureadmin"
   administrator_password = random_password.admin_password.result
 
-  databases_names     = ["mydatabase"]
-  databases_collation = { mydatabase = "en_US.UTF8" }
-  databases_charset   = { mydatabase = "UTF8" }
+  databases = {
+    mydatabase = {
+      collation = "en_US.UTF8"
+      charset   = "UTF8"
+    }
+  }
 
   maintenance_window = {
     day_of_week  = 3
