@@ -1,7 +1,7 @@
 # Unreleased
 
 Added
-  * AZ-936: Add for_each condition on firewall rules creation
+  * AZ-936: Only create firewall rules for public servers
 
 # v6.0.0 - 2022-11-25
 
