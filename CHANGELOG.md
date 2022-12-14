@@ -1,3 +1,8 @@
+# Unreleased
+
+Added
+  * AZ-936: Only create firewall rules for public servers
+
 # v6.0.0 - 2022-11-25
 
 Breaking
