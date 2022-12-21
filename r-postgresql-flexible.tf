@@ -48,7 +48,6 @@ resource "azurerm_postgresql_flexible_server" "postgresql_flexible_server" {
       error_message = "var.private_dns_zone_id and var.delegated_subnet_id should either both be set or none of them."
     }
   }
-
 }
 
 resource "azurerm_postgresql_flexible_server_database" "postgresql_flexible_db" {
