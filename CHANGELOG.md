@@ -3,7 +3,7 @@
 Breaking
   * AZ-930: Externalize `postgresql-users` and `postgresql-database-configuration` as separated modules in dedicated repo
 
-Added
+Changed
   * AZ-934: Adding `databases` map variable as unique var to set dbs 
 
 # v6.1.0 - 2022-12-14
