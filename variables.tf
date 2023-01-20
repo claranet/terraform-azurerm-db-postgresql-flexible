@@ -109,12 +109,6 @@ variable "databases_names" {
   type        = list(string)
 }
 
-variable "database_users_search_path" {
-  description = "Define search_path for database users"
-  type        = map(list(string))
-  default     = {}
-}
-
 variable "databases_charset" {
   description = "Valid PostgreSQL charset : https://www.postgresql.org/docs/current/multibyte.html#CHARSET-TABLE"
   type        = map(string)
@@ -136,10 +130,4 @@ variable "postgresql_configurations" {
 variable "allowed_cidrs" {
   description = "Map of authorized cidrs."
   type        = map(string)
-}
-
-variable "create_databases_users" {
-  description = "True to create a user named <db>_user per database with generated password and role db_owner."
-  type        = bool
-  default     = true
 }
