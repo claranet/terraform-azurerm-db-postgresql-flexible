@@ -54,6 +54,11 @@ module "logs" {
   resource_group_name = module.rg.resource_group_name
 }
 
+resource "random_password" "admin_password" {
+  special = "false"
+  length  = 32
+}
+
 module "postgresql_flexible" {
   source  = "claranet/db-postgresql-flexible/azurerm"
   version = "x.x.x"
@@ -79,8 +84,8 @@ module "postgresql_flexible" {
   backup_retention_days        = 14
   geo_redundant_backup_enabled = true
 
-  administrator_login    = var.administrator_login
-  administrator_password = var.administrator_password
+  administrator_login    = "azureadmin"
+  administrator_password = random_password.admin_password.result
 
   databases_names     = ["mydatabase"]
   databases_collation = { mydatabase = "en_US.UTF8" }
@@ -101,6 +106,39 @@ module "postgresql_flexible" {
     foo = "bar"
   }
 }
+
+provider "postgresql" {
+  host      = module.postgresql_flexible.postgresql_flexible_fqdn
+  port      = 5432
+  username  = module.postgresql_flexible.postgresql_flexible_administrator_login
+  password  = module.postgresql_flexible.postgresql_flexible_administrator_password
+  sslmode   = "require"
+  superuser = false
+}
+
+module "postgresql_users" {
+  source  = "claranet/users/postgresql"
+  version = "x.x.x"
+
+  for_each = toset(module.postgresql_flexible.postgresql_flexible_databases_names)
+
+  administrator_login = module.postgresql_flexible.postgresql_flexible_administrator_login
+
+  database = each.key
+}
+
+module "postgresql_configuration" {
+  source  = "claranet/database-configuration/postgresql"
+  version = "x.x.x"
+
+  for_each = toset(module.postgresql_flexible.postgresql_flexible_databases_names)
+
+  administrator_login = module.postgresql_flexible.postgresql_flexible_administrator_login
+
+  database_admin_user = module.postgresql_users[each.key].user
+  database            = each.key
+  schema_name         = each.key
+}
 ```
 
 ## Providers
@@ -109,8 +147,6 @@ module "postgresql_flexible" {
 |------|---------|
 | azurecaf | ~> 1.2, >= 1.2.22 |
 | azurerm | >= 3.22 |
-| postgresql.create\_users | >= 1.14 |
-| random | >= 3.0 |
 
 ## Modules
 
@@ -126,13 +162,6 @@ module "postgresql_flexible" {
 | [azurerm_postgresql_flexible_server_configuration.postgresql_flexible_config](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server_configuration) | resource |
 | [azurerm_postgresql_flexible_server_database.postgresql_flexible_db](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server_database) | resource |
 | [azurerm_postgresql_flexible_server_firewall_rule.firewall_rules](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server_firewall_rule) | resource |
-| [postgresql_default_privileges.user_functions_priviliges](https://registry.terraform.io/providers/cyrilgdn/postgresql/latest/docs/resources/default_privileges) | resource |
-| [postgresql_default_privileges.user_sequences_priviliges](https://registry.terraform.io/providers/cyrilgdn/postgresql/latest/docs/resources/default_privileges) | resource |
-| [postgresql_default_privileges.user_tables_privileges](https://registry.terraform.io/providers/cyrilgdn/postgresql/latest/docs/resources/default_privileges) | resource |
-| [postgresql_grant.revoke_public](https://registry.terraform.io/providers/cyrilgdn/postgresql/latest/docs/resources/grant) | resource |
-| [postgresql_role.db_user](https://registry.terraform.io/providers/cyrilgdn/postgresql/latest/docs/resources/role) | resource |
-| [postgresql_schema.db_schema](https://registry.terraform.io/providers/cyrilgdn/postgresql/latest/docs/resources/schema) | resource |
-| [random_password.db_passwords](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/password) | resource |
 | [azurecaf_name.postgresql_flexible_dbs](https://registry.terraform.io/providers/aztfmod/azurecaf/latest/docs/data-sources/name) | data source |
 | [azurecaf_name.postgresql_flexible_server](https://registry.terraform.io/providers/aztfmod/azurecaf/latest/docs/data-sources/name) | data source |
 
@@ -145,10 +174,8 @@ module "postgresql_flexible" {
 | allowed\_cidrs | Map of authorized cidrs. | `map(string)` | n/a | yes |
 | backup\_retention\_days | Backup retention days for the PostgreSQL Flexible Server (Between 7 and 35 days). | `number` | `7` | no |
 | client\_name | Name of client. | `string` | n/a | yes |
-| create\_databases\_users | True to create a user named <db>\_user per database with generated password and role db\_owner. | `bool` | `true` | no |
 | custom\_diagnostic\_settings\_name | Custom name of the diagnostics settings, name will be 'default' if not set. | `string` | `"default"` | no |
 | custom\_server\_name | Custom Server Name identifier. | `string` | `""` | no |
-| database\_users\_search\_path | Define search\_path for database users | `map(list(string))` | `{}` | no |
 | databases\_charset | Valid PostgreSQL charset : https://www.postgresql.org/docs/current/multibyte.html#CHARSET-TABLE | `map(string)` | `{}` | no |
 | databases\_collation | Valid PostgreSQL collation : http://www.postgresql.cn/docs/13/collation.html - be careful about https://docs.microsoft.com/en-us/windows/win32/intl/locale-names?redirectedfrom=MSDN | `map(string)` | `{}` | no |
 | databases\_names | List of databases names to create. | `list(string)` | n/a | yes |
@@ -190,7 +217,6 @@ module "postgresql_flexible" {
 | postgresql\_flexible\_firewall\_rules | Map of PostgreSQL created rules. |
 | postgresql\_flexible\_fqdn | FQDN of the PostgreSQL server. |
 | postgresql\_flexible\_server\_id | PostgreSQL server ID. |
-| postgresql\_users\_credentials | Map of passwords for databases users. |
 | terraform\_module | Information about this Terraform module |
 <!-- END_TF_DOCS -->
 ## Related documentation
