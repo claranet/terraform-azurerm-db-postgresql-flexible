@@ -3,6 +3,9 @@
 Breaking
   * AZ-930: Externalize `postgresql-users` and `postgresql-database-configuration` as separated modules in dedicated repo
 
+Added
+  * AZ-933: adding pre_condition on private_dns_zone_id and delegated_subnet_id vars 
+
 Changed
   * AZ-934: Adding `databases` map variable as unique var to set dbs 
 
