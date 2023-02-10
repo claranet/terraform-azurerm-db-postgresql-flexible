@@ -44,12 +44,13 @@ resource "azurerm_postgresql_flexible_server" "postgresql_flexible_server" {
 }
 
 resource "azurerm_postgresql_flexible_server_database" "postgresql_flexible_db" {
-  for_each = toset(var.databases_names)
+  for_each = var.databases
 
-  name      = var.use_caf_naming_for_databases ? data.azurecaf_name.postgresql_flexible_dbs[each.value].result : each.value
+  name      = var.use_caf_naming_for_databases ? data.azurecaf_name.postgresql_flexible_dbs[each.key].result : each.key
   server_id = azurerm_postgresql_flexible_server.postgresql_flexible_server.id
-  charset   = lookup(var.databases_charset, each.value, "UTF8")
-  collation = lookup(var.databases_collation, each.value, "en_US.UTF8")
+  charset   = each.value.charset
+  collation = each.value.collation
+
 }
 
 resource "azurerm_postgresql_flexible_server_configuration" "postgresql_flexible_config" {

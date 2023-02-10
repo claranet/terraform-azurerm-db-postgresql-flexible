@@ -104,21 +104,17 @@ variable "delegated_subnet_id" {
   default     = null
 }
 
-variable "databases_names" {
-  description = "List of databases names to create."
-  type        = list(string)
-}
-
-variable "databases_charset" {
-  description = "Valid PostgreSQL charset : https://www.postgresql.org/docs/current/multibyte.html#CHARSET-TABLE"
-  type        = map(string)
-  default     = {}
-}
-
-variable "databases_collation" {
-  description = "Valid PostgreSQL collation : http://www.postgresql.cn/docs/13/collation.html - be careful about https://docs.microsoft.com/en-us/windows/win32/intl/locale-names?redirectedfrom=MSDN"
-  type        = map(string)
-  default     = {}
+variable "databases" {
+  description = <<EOF
+  Map of databases configurations with database name as key and following available configuration option:
+   *  (optional) charset: Valid PostgreSQL charset : https://www.postgresql.org/docs/current/multibyte.html#CHARSET-TABLE
+   *  (optional) collation: Valid PostgreSQL collation : http://www.postgresql.cn/docs/13/collation.html - be careful about https://docs.microsoft.com/en-us/windows/win32/intl/locale-names?redirectedfrom=MSDN
+  EOF
+  type = map(object({
+    charset   = optional(string, "UTF8")
+    collation = optional(string, "en_US.UTF8")
+  }))
+  default = {}
 }
 
 variable "postgresql_configurations" {
