@@ -41,6 +41,13 @@ resource "azurerm_postgresql_flexible_server" "postgresql_flexible_server" {
     local.default_tags,
     var.extra_tags,
   )
+
+  lifecycle {
+    precondition {
+      condition     = var.private_dns_zone_id != null && var.delegated_subnet_id != null || var.private_dns_zone_id == null && var.delegated_subnet_id == null
+      error_message = "var.private_dns_zone_id and var.delegated_subnet_id should either both be set or none of them."
+    }
+  }
 }
 
 resource "azurerm_postgresql_flexible_server_database" "postgresql_flexible_db" {
