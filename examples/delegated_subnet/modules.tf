@@ -68,12 +68,12 @@ module "subnet" {
 }
 
 resource "azurerm_private_dns_zone" "postgres" {
-  name                = "${var.environment}-${var.stack}.postgres.database.azure.com"
+  name                = "format("%s-%s.postgres.database.azure.com", var.environment, var.stack)
   resource_group_name = module.rg.resource_group_name
 }
 
 resource "azurerm_private_dns_zone_virtual_network_link" "postgres" {
-  name                = "${var.stack}_dns_zone_postgres_${var.environment}"
+  name                = format("%s_dns_zone_postgres_%s", var.stack, var.environment)
   resource_group_name = module.rg.resource_group_name
 
   private_dns_zone_name = azurerm_private_dns_zone.postgres.name

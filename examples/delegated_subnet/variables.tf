@@ -19,12 +19,12 @@ variable "stack" {
 }
 
 variable "vnet_cidr" {
-  description = "cidr for the vnet"
+  description = "CIDR for the vnet"
   type        = string
 }
 
 variable "subnet_cidr" {
-  description = "cidr for the subnet"
+  description = "CIDR for the subnet"
   type        = string
 }
 
