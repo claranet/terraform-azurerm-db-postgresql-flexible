@@ -1,7 +1,8 @@
-# Unreleased
+# v7.0.0 - 2023-02-10
 
 Breaking
   * AZ-930: Externalize `postgresql-users` and `postgresql-database-configuration` as separated modules in dedicated repo
+  * AZ-933: Terraform 1.3 minimum version
 
 Added
   * AZ-933: adding pre_condition on private_dns_zone_id and delegated_subnet_id vars 
