@@ -68,7 +68,7 @@ module "subnet" {
 }
 
 resource "azurerm_private_dns_zone" "postgres" {
-  name                = "format("%s-%s.postgres.database.azure.com", var.environment, var.stack)
+  name                = format("%s-%s.postgres.database.azure.com", var.environment, var.stack)
   resource_group_name = module.rg.resource_group_name
 }
 
@@ -112,9 +112,12 @@ module "postgresql_flexible" {
   administrator_login    = var.administrator_login
   administrator_password = var.administrator_password
 
-  databases_names     = ["mydatabase"]
-  databases_collation = { mydatabase = "en_US.UTF8" }
-  databases_charset   = { mydatabase = "UTF8" }
+  databases = {
+    mydatabase = {
+      collation = "en_US.UTF8"
+      charset   = "UTF8"
+    }
+  }
 
   maintenance_window = {
     day_of_week  = 3
