@@ -1,11 +1,11 @@
-client_name="test"
-environment="dev"
-location="westeurope"
-location_short="euw"
-logs_destinations_ids=[]
-resource_group_name="test"
-stack="test"
-databases_names=["mydatabase"]
-allowed_cidrs={"1" = "12.34.56.78/32"}
-administrator_login="admin"
-administrator_password="adminpass"
+client_name            = "test"
+environment            = "dev"
+location               = "westeurope"
+location_short         = "euw"
+logs_destinations_ids  = []
+resource_group_name    = "test"
+stack                  = "test"
+databases_names        = ["mydatabase"]
+allowed_cidrs          = { "1" = "12.34.56.78/32" }
+administrator_login    = "admin"
+administrator_password = "adminpass"

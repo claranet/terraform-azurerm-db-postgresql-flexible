@@ -156,13 +156,13 @@ module "postgresql_configuration" {
 | Name | Version |
 |------|---------|
 | azurecaf | ~> 1.2, >= 1.2.22 |
-| azurerm | >= 3.22 |
+| azurerm | ~> 3.39 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| diagnostics | claranet/diagnostic-settings/azurerm | 6.2.0 |
+| diagnostics | claranet/diagnostic-settings/azurerm | ~> 6.4.1 |
 
 ## Resources
 
