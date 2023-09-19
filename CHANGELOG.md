@@ -1,3 +1,8 @@
+# Unreleased
+
+Breaking
+  * [GH-2](https://github.com/claranet/terraform-azurerm-db-postgresql-flexible/pull/2/files): Remove `retention_days` parameter for the diagnostic-settings module
+
 # v7.0.0 - 2023-02-10
 
 Breaking
@@ -5,10 +10,10 @@ Breaking
   * AZ-933: Terraform 1.3 minimum version
 
 Added
-  * AZ-933: adding pre_condition on private_dns_zone_id and delegated_subnet_id vars 
+  * AZ-933: adding pre_condition on private_dns_zone_id and delegated_subnet_id vars
 
 Changed
-  * AZ-934: Adding `databases` map variable as unique var to set dbs 
+  * AZ-934: Adding `databases` map variable as unique var to set dbs
 
 # v6.1.0 - 2022-12-14
 
@@ -42,4 +47,3 @@ Fixed
 
 Added
   * AZ-602: First release of Postgresql Flexible server module
-  
