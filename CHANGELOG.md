@@ -1,4 +1,4 @@
-# Unreleased
+# v7.1.0 - 2023-09-21
 
 Breaking
   * [GH-2](https://github.com/claranet/terraform-azurerm-db-postgresql-flexible/pull/2/files): Remove `retention_days` parameter for the diagnostic-settings module
