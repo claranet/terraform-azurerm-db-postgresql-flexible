@@ -1,4 +1,4 @@
-# Unreleased
+# v7.1.1 - 2023-12-08
 
 Fixed
   * AZ-1302: Fix example
