@@ -96,7 +96,7 @@ module "postgresql_users" {
   source  = "claranet/users/postgresql"
   version = "x.x.x"
 
-  for_each = toset(module.postgresql_flexible.postgresql_flexible_databases_names)
+  for_each = module.postgresql_flexible.postgresql_flexible_databases_names
 
   administrator_login = module.postgresql_flexible.postgresql_flexible_administrator_login
 
@@ -107,7 +107,7 @@ module "postgresql_configuration" {
   source  = "claranet/database-configuration/postgresql"
   version = "x.x.x"
 
-  for_each = toset(module.postgresql_flexible.postgresql_flexible_databases_names)
+  for_each = module.postgresql_flexible.postgresql_flexible_databases_names
 
   administrator_login = module.postgresql_flexible.postgresql_flexible_administrator_login
 
