@@ -1,3 +1,8 @@
+# Unreleased
+
+Fixed
+  * AZ-1302: Fix example
+
 # v7.1.0 - 2023-09-21
 
 Breaking
