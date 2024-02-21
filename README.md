@@ -96,7 +96,7 @@ module "postgresql_flexible" {
 
   databases = {
     mydatabase = {
-      collation = "en_US.UTF8"
+      collation = "en_US.utf8"
       charset   = "UTF8"
     }
   }
@@ -186,7 +186,7 @@ module "postgresql_configuration" {
 | client\_name | Name of client. | `string` | n/a | yes |
 | custom\_diagnostic\_settings\_name | Custom name of the diagnostics settings, name will be 'default' if not set. | `string` | `"default"` | no |
 | custom\_server\_name | Custom Server Name identifier. | `string` | `""` | no |
-| databases | Map of databases configurations with database name as key and following available configuration option:<br>   *  (optional) charset: Valid PostgreSQL charset : https://www.postgresql.org/docs/current/multibyte.html#CHARSET-TABLE<br>   *  (optional) collation: Valid PostgreSQL collation : http://www.postgresql.cn/docs/13/collation.html - be careful about https://docs.microsoft.com/en-us/windows/win32/intl/locale-names?redirectedfrom=MSDN | <pre>map(object({<br>    charset   = optional(string, "UTF8")<br>    collation = optional(string, "en_US.UTF8")<br>  }))</pre> | `{}` | no |
+| databases | Map of databases configurations with database name as key and following available configuration option:<br>   *  (optional) charset: Valid PostgreSQL charset : https://www.postgresql.org/docs/current/multibyte.html#CHARSET-TABLE<br>   *  (optional) collation: Valid PostgreSQL collation : http://www.postgresql.cn/docs/13/collation.html - be careful about https://docs.microsoft.com/en-us/windows/win32/intl/locale-names?redirectedfrom=MSDN | <pre>map(object({<br>    charset   = optional(string, "UTF8")<br>    collation = optional(string, "en_US.utf8")<br>  }))</pre> | `{}` | no |
 | delegated\_subnet\_id | Id of the subnet to create the PostgreSQL Flexible Server. (Should not have any resource deployed in) | `string` | `null` | no |
 | environment | Name of application's environnement. | `string` | n/a | yes |
 | extra\_tags | Map of custom tags. | `map(string)` | `{}` | no |

@@ -112,7 +112,7 @@ variable "databases" {
   EOF
   type = map(object({
     charset   = optional(string, "UTF8")
-    collation = optional(string, "en_US.UTF8")
+    collation = optional(string, "en_US.utf8")
   }))
   default = {}
 }
