@@ -156,7 +156,7 @@ module "postgresql_configuration" {
 | Name | Version |
 |------|---------|
 | azurecaf | ~> 1.2, >= 1.2.22 |
-| azurerm | ~> 3.39 |
+| azurerm | ~> 3.70 |
 
 ## Modules
 
