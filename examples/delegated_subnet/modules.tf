@@ -114,7 +114,7 @@ module "postgresql_flexible" {
 
   databases = {
     mydatabase = {
-      collation = "en_US.UTF8"
+      collation = "en_US.utf8"
       charset   = "UTF8"
     }
   }
