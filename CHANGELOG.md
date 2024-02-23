@@ -1,3 +1,8 @@
+# v7.2.0 - 2024-02-23
+
+Changed
+  * [GH-4](https://github.com/claranet/terraform-azurerm-db-postgresql-flexible/pull/4): fix: Correct casing of default PostgreSQL collation, bump provider `AzureRM` to `v3.70` minimum version
+
 # v7.1.1 - 2023-12-08
 
 Fixed
