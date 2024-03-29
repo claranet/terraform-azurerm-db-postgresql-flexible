@@ -1,3 +1,8 @@
+# Unreleased
+
+Added
+  * AZ-1384: Adding `authentication` block
+
 # v7.2.0 - 2024-02-23
 
 Changed

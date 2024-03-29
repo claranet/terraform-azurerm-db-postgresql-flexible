@@ -127,3 +127,13 @@ variable "allowed_cidrs" {
   description = "Map of authorized cidrs."
   type        = map(string)
 }
+
+variable "authentication" {
+  description = "Authentication configurations for the PostgreSQL Flexible Server"
+  type = object({
+    active_directory_auth_enabled = optional(bool)
+    password_auth_enabled         = optional(bool)
+    tenant_id                     = optional(string)
+  })
+  default = {}
+}
