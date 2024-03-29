@@ -182,6 +182,7 @@ module "postgresql_configuration" {
 | administrator\_login | PostgreSQL administrator login. | `string` | n/a | yes |
 | administrator\_password | PostgreSQL administrator password. Strong Password : https://docs.microsoft.com/en-us/sql/relational-databases/security/strong-passwords?view=sql-server-2017. | `string` | n/a | yes |
 | allowed\_cidrs | Map of authorized cidrs. | `map(string)` | n/a | yes |
+| authentication | Authentication configurations for the PostgreSQL Flexible Server | <pre>object({<br>    active_directory_auth_enabled = optional(bool)<br>    password_auth_enabled         = optional(bool)<br>    tenant_id                     = optional(string)<br>  })</pre> | `{}` | no |
 | backup\_retention\_days | Backup retention days for the PostgreSQL Flexible Server (Between 7 and 35 days). | `number` | `7` | no |
 | client\_name | Name of client. | `string` | n/a | yes |
 | custom\_diagnostic\_settings\_name | Custom name of the diagnostics settings, name will be 'default' if not set. | `string` | `"default"` | no |

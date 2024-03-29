@@ -37,6 +37,15 @@ resource "azurerm_postgresql_flexible_server" "postgresql_flexible_server" {
   private_dns_zone_id = var.private_dns_zone_id
   delegated_subnet_id = var.delegated_subnet_id
 
+  dynamic "authentication" {
+    for_each = var.authentication[*]
+    content {
+      active_directory_auth_enabled = authentication.value.active_directory_auth_enabled
+      password_auth_enabled         = authentication.value.password_auth_enabled
+      tenant_id                     = authentication.value.tenant_id
+    }
+  }
+
   tags = merge(
     local.default_tags,
     var.extra_tags,
