@@ -3,11 +3,14 @@ resource "azurerm_postgresql_flexible_server" "postgresql_flexible_server" {
   name                = local.postgresql_flexible_server_name
   location            = var.location
 
-  sku_name   = join("_", [lookup(local.tier_map, var.tier, "GeneralPurpose"), "Standard", var.size])
-  storage_mb = var.storage_mb
-  version    = var.postgresql_version
+  sku_name          = join("_", [lookup(local.tier_map, var.tier, "GeneralPurpose"), "Standard", var.size])
+  storage_mb        = var.storage_mb
+  auto_grow_enabled = var.auto_grow_enabled
+  version           = var.postgresql_version
 
   zone = var.zone
+
+  public_network_access_enabled = var.public_network_access_enabled
 
   dynamic "high_availability" {
     for_each = var.standby_zone != null && var.tier != "Burstable" ? toset([var.standby_zone]) : toset([])
