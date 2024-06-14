@@ -1,3 +1,27 @@
+## 7.4.0 (2024-06-14)
+
+
+### Features
+
+* add `auto_grow_enabled` and `public_network_access_enabled` new parameters 9a5e4bb
+
+
+### Miscellaneous Chores
+
+* **deps:** update dependency opentofu to v1.7.0 14ba3ef
+* **deps:** update dependency opentofu to v1.7.1 5eba199
+* **deps:** update dependency opentofu to v1.7.2 d623d46
+* **deps:** update dependency pre-commit to v3.7.1 544dadb
+* **deps:** update dependency terraform-docs to v0.18.0 54e0aba
+* **deps:** update dependency tflint to v0.51.0 b04959c
+* **deps:** update dependency tflint to v0.51.1 ca7ed4a
+* **deps:** update dependency trivy to v0.51.0 671c58f
+* **deps:** update dependency trivy to v0.51.1 080647e
+* **deps:** update dependency trivy to v0.51.2 94b535c
+* **deps:** update dependency trivy to v0.51.4 9d97214
+* **deps:** update dependency trivy to v0.52.0 9e8d00c
+* **deps:** update dependency trivy to v0.52.1 1c30742
+
 ## 7.3.1 (2024-04-26)
 
 
