@@ -46,6 +46,12 @@ variable "storage_mb" {
   default     = 32768
 }
 
+variable "auto_grow_enabled" {
+  description = "Enable auto grow for the PostgreSQL Flexible Server."
+  type        = bool
+  default     = false
+}
+
 variable "postgresql_version" {
   description = "Version of PostgreSQL Flexible Server. Possible values are : https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server#version."
   type        = number
@@ -126,6 +132,12 @@ variable "postgresql_configurations" {
 variable "allowed_cidrs" {
   description = "Map of authorized cidrs."
   type        = map(string)
+}
+
+variable "public_network_access_enabled" {
+  description = "Enable public network access for the PostgreSQL Flexible Server."
+  type        = bool
+  default     = false
 }
 
 variable "authentication" {

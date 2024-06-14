@@ -156,7 +156,7 @@ module "postgresql_configuration" {
 | Name | Version |
 |------|---------|
 | azurecaf | ~> 1.2, >= 1.2.22 |
-| azurerm | ~> 3.70 |
+| azurerm | ~> 3.105 |
 
 ## Modules
 
@@ -183,6 +183,7 @@ module "postgresql_configuration" {
 | administrator\_password | PostgreSQL administrator password. Strong Password : https://docs.microsoft.com/en-us/sql/relational-databases/security/strong-passwords?view=sql-server-2017. | `string` | n/a | yes |
 | allowed\_cidrs | Map of authorized cidrs. | `map(string)` | n/a | yes |
 | authentication | Authentication configurations for the PostgreSQL Flexible Server | <pre>object({<br>    active_directory_auth_enabled = optional(bool)<br>    password_auth_enabled         = optional(bool)<br>    tenant_id                     = optional(string)<br>  })</pre> | `{}` | no |
+| auto\_grow\_enabled | Enable auto grow for the PostgreSQL Flexible Server. | `bool` | `false` | no |
 | backup\_retention\_days | Backup retention days for the PostgreSQL Flexible Server (Between 7 and 35 days). | `number` | `7` | no |
 | client\_name | Name of client. | `string` | n/a | yes |
 | custom\_diagnostic\_settings\_name | Custom name of the diagnostics settings, name will be 'default' if not set. | `string` | `"default"` | no |
@@ -203,6 +204,7 @@ module "postgresql_configuration" {
 | postgresql\_configurations | PostgreSQL configurations to enable. | `map(string)` | `{}` | no |
 | postgresql\_version | Version of PostgreSQL Flexible Server. Possible values are : https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server#version. | `number` | `13` | no |
 | private\_dns\_zone\_id | ID of the private DNS zone to create the PostgreSQL Flexible Server. | `string` | `null` | no |
+| public\_network\_access\_enabled | Enable public network access for the PostgreSQL Flexible Server. | `bool` | `false` | no |
 | resource\_group\_name | Name of the application ressource group, herited from infra module. | `string` | n/a | yes |
 | size | Size for PostgreSQL Flexible server sku : https://docs.microsoft.com/en-us/azure/postgresql/flexible-server/concepts-compute-storage. | `string` | `"D2ds_v4"` | no |
 | stack | Name of application stack. | `string` | n/a | yes |
