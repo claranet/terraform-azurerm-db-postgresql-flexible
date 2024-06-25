@@ -27,11 +27,6 @@ module "logs" {
   resource_group_name = module.rg.resource_group_name
 }
 
-resource "random_password" "admin_password" {
-  special = "false"
-  length  = 32
-}
-
 module "postgresql_flexible" {
   source  = "claranet/db-postgresql-flexible/azurerm"
   version = "x.x.x"
@@ -57,8 +52,7 @@ module "postgresql_flexible" {
   backup_retention_days        = 14
   geo_redundant_backup_enabled = true
 
-  administrator_login    = "azureadmin"
-  administrator_password = random_password.admin_password.result
+  administrator_login = "azureadmin"
 
   databases = {
     mydatabase = {
