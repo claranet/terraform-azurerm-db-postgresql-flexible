@@ -1,3 +1,20 @@
+## 7.5.0 (2024-07-10)
+
+
+### Features
+
+* **AZ-1432:** add administrator password creation with random_password cc0dcda
+
+
+### Miscellaneous Chores
+
+* **deps:** update dependency opentofu to v1.7.3 0a0f552
+* **deps:** update dependency tflint to v0.51.2 27b809a
+* **deps:** update dependency tflint to v0.52.0 abf0227
+* **deps:** update dependency trivy to v0.52.2 93e65e0
+* **deps:** update dependency trivy to v0.53.0 42650db
+* **deps:** update pre-commit hook antonbabenko/pre-commit-terraform to v1.92.0 9f06e11
+
 ## 7.4.0 (2024-06-14)
 
 
