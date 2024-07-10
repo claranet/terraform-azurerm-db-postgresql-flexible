@@ -22,7 +22,7 @@ resource "azurerm_postgresql_flexible_server" "postgresql_flexible_server" {
   }
 
   administrator_login    = var.administrator_login
-  administrator_password = var.administrator_password
+  administrator_password = local.administrator_password
 
   backup_retention_days        = var.backup_retention_days
   geo_redundant_backup_enabled = var.geo_redundant_backup_enabled
@@ -60,6 +60,13 @@ resource "azurerm_postgresql_flexible_server" "postgresql_flexible_server" {
       error_message = "var.private_dns_zone_id and var.delegated_subnet_id should either both be set or none of them."
     }
   }
+}
+
+resource "random_password" "administrator_password" {
+  count = var.administrator_password == null ? 1 : 0
+
+  length  = 32
+  special = true
 }
 
 resource "azurerm_postgresql_flexible_server_database" "postgresql_flexible_db" {

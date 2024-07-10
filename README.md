@@ -61,11 +61,6 @@ module "logs" {
   resource_group_name = module.rg.resource_group_name
 }
 
-resource "random_password" "admin_password" {
-  special = "false"
-  length  = 32
-}
-
 module "postgresql_flexible" {
   source  = "claranet/db-postgresql-flexible/azurerm"
   version = "x.x.x"
@@ -91,8 +86,7 @@ module "postgresql_flexible" {
   backup_retention_days        = 14
   geo_redundant_backup_enabled = true
 
-  administrator_login    = "azureadmin"
-  administrator_password = random_password.admin_password.result
+  administrator_login = "azureadmin"
 
   databases = {
     mydatabase = {
@@ -157,6 +151,7 @@ module "postgresql_configuration" {
 |------|---------|
 | azurecaf | ~> 1.2, >= 1.2.22 |
 | azurerm | ~> 3.105 |
+| random | >= 2.0 |
 
 ## Modules
 
@@ -172,6 +167,7 @@ module "postgresql_configuration" {
 | [azurerm_postgresql_flexible_server_configuration.postgresql_flexible_config](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server_configuration) | resource |
 | [azurerm_postgresql_flexible_server_database.postgresql_flexible_db](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server_database) | resource |
 | [azurerm_postgresql_flexible_server_firewall_rule.firewall_rules](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server_firewall_rule) | resource |
+| [random_password.administrator_password](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/password) | resource |
 | [azurecaf_name.postgresql_flexible_dbs](https://registry.terraform.io/providers/aztfmod/azurecaf/latest/docs/data-sources/name) | data source |
 | [azurecaf_name.postgresql_flexible_server](https://registry.terraform.io/providers/aztfmod/azurecaf/latest/docs/data-sources/name) | data source |
 
@@ -180,7 +176,7 @@ module "postgresql_configuration" {
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | administrator\_login | PostgreSQL administrator login. | `string` | n/a | yes |
-| administrator\_password | PostgreSQL administrator password. Strong Password : https://docs.microsoft.com/en-us/sql/relational-databases/security/strong-passwords?view=sql-server-2017. | `string` | n/a | yes |
+| administrator\_password | PostgreSQL administrator password. Strong Password : https://docs.microsoft.com/en-us/sql/relational-databases/security/strong-passwords?view=sql-server-2017. | `string` | `null` | no |
 | allowed\_cidrs | Map of authorized cidrs. | `map(string)` | n/a | yes |
 | authentication | Authentication configurations for the PostgreSQL Flexible Server | <pre>object({<br>    active_directory_auth_enabled = optional(bool)<br>    password_auth_enabled         = optional(bool)<br>    tenant_id                     = optional(string)<br>  })</pre> | `{}` | no |
 | auto\_grow\_enabled | Enable auto grow for the PostgreSQL Flexible Server. | `bool` | `false` | no |

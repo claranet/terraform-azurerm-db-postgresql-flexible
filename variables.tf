@@ -78,6 +78,7 @@ variable "administrator_login" {
 variable "administrator_password" {
   description = "PostgreSQL administrator password. Strong Password : https://docs.microsoft.com/en-us/sql/relational-databases/security/strong-passwords?view=sql-server-2017."
   type        = string
+  default     = null
 }
 
 variable "backup_retention_days" {
