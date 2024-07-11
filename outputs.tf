@@ -6,7 +6,7 @@ output "postgresql_flexible_administrator_login" {
 
 output "postgresql_flexible_administrator_password" {
   description = "Administrator password for PostgreSQL Flexible server."
-  value       = var.administrator_password
+  value       = local.administrator_password
   sensitive   = true
 }
 
