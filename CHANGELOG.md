@@ -1,3 +1,10 @@
+## 7.5.1 (2024-07-11)
+
+
+### Bug Fixes
+
+* **AZ-1432:** fix administrator_paswword output 247efbd
+
 ## 7.5.0 (2024-07-10)
 
 
