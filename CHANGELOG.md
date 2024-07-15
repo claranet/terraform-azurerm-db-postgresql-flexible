@@ -1,3 +1,10 @@
+## 7.5.2 (2024-07-15)
+
+
+### Bug Fixes
+
+* **GH-8:** fix variable evaluation when `administrator_password` is specified fc0c455
+
 ## 7.5.1 (2024-07-11)
 
 
