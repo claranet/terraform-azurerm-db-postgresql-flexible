@@ -5,5 +5,5 @@ locals {
     "MemoryOptimized" = "MO"
   }
 
-  administrator_password = coalesce(var.administrator_password, random_password.administrator_password[0].result)
+  administrator_password = coalesce(var.administrator_password, one(random_password.administrator_password[*].result))
 }
