@@ -1,6 +1,6 @@
-resource "azurerm_postgresql_flexible_server" "postgresql_flexible_server" {
+resource "azurerm_postgresql_flexible_server" "main" {
   resource_group_name = var.resource_group_name
-  name                = local.postgresql_flexible_server_name
+  name                = local.name
   location            = var.location
 
   sku_name          = join("_", [lookup(local.tier_map, var.tier, "GeneralPurpose"), "Standard", var.size])
@@ -69,19 +69,19 @@ resource "random_password" "administrator_password" {
   special = true
 }
 
-resource "azurerm_postgresql_flexible_server_database" "postgresql_flexible_db" {
+resource "azurerm_postgresql_flexible_server_database" "main" {
   for_each = var.databases
 
-  name      = var.use_caf_naming_for_databases ? data.azurecaf_name.postgresql_flexible_dbs[each.key].result : each.key
-  server_id = azurerm_postgresql_flexible_server.postgresql_flexible_server.id
+  name      = var.caf_naming_for_databases_enabled ? data.azurecaf_name.postgresql_flexible_dbs[each.key].result : each.key
+  server_id = azurerm_postgresql_flexible_server.main.id
   charset   = each.value.charset
   collation = each.value.collation
 
 }
 
-resource "azurerm_postgresql_flexible_server_configuration" "postgresql_flexible_config" {
-  for_each  = var.postgresql_configurations
+resource "azurerm_postgresql_flexible_server_configuration" "main" {
+  for_each  = var.configurations
   name      = each.key
-  server_id = azurerm_postgresql_flexible_server.postgresql_flexible_server.id
+  server_id = azurerm_postgresql_flexible_server.main.id
   value     = each.value
 }

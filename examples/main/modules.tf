@@ -1,32 +1,3 @@
-module "azure_region" {
-  source  = "claranet/regions/azurerm"
-  version = "x.x.x"
-
-  azure_region = var.azure_region
-}
-
-module "rg" {
-  source  = "claranet/rg/azurerm"
-  version = "x.x.x"
-
-  location    = module.azure_region.location
-  client_name = var.client_name
-  environment = var.environment
-  stack       = var.stack
-}
-
-module "logs" {
-  source  = "claranet/run/azurerm//modules/logs"
-  version = "x.x.x"
-
-  client_name         = var.client_name
-  environment         = var.environment
-  stack               = var.stack
-  location            = module.azure_region.location
-  location_short      = module.azure_region.location_short
-  resource_group_name = module.rg.resource_group_name
-}
-
 module "postgresql_flexible" {
   source  = "claranet/db-postgresql-flexible/azurerm"
   version = "x.x.x"
@@ -37,12 +8,12 @@ module "postgresql_flexible" {
   environment    = var.environment
   stack          = var.stack
 
-  resource_group_name = module.rg.resource_group_name
+  resource_group_name = module.rg.name
 
   tier               = "GeneralPurpose"
   size               = "D2s_v3"
   storage_mb         = 32768
-  postgresql_version = 13
+  postgresql_version = 16
 
   allowed_cidrs = {
     "1" = "10.0.0.0/24"
@@ -78,10 +49,10 @@ module "postgresql_flexible" {
 }
 
 provider "postgresql" {
-  host      = module.postgresql_flexible.postgresql_flexible_fqdn
+  host      = module.postgresql_flexible.fqdn
   port      = 5432
-  username  = module.postgresql_flexible.postgresql_flexible_administrator_login
-  password  = module.postgresql_flexible.postgresql_flexible_administrator_password
+  username  = module.postgresql_flexible.administrator_login
+  password  = module.postgresql_flexible.administrator_password
   sslmode   = "require"
   superuser = false
 }
@@ -90,9 +61,9 @@ module "postgresql_users" {
   source  = "claranet/users/postgresql"
   version = "x.x.x"
 
-  for_each = module.postgresql_flexible.postgresql_flexible_databases_names
+  for_each = module.postgresql_flexible.databases_names
 
-  administrator_login = module.postgresql_flexible.postgresql_flexible_administrator_login
+  administrator_login = module.postgresql_flexible.administrator_login
 
   database = each.key
 }
@@ -101,9 +72,9 @@ module "postgresql_configuration" {
   source  = "claranet/database-configuration/postgresql"
   version = "x.x.x"
 
-  for_each = module.postgresql_flexible.postgresql_flexible_databases_names
+  for_each = module.postgresql_flexible.databases_names
 
-  administrator_login = module.postgresql_flexible.postgresql_flexible_administrator_login
+  administrator_login = module.postgresql_flexible.administrator_login
 
   database_admin_user = module.postgresql_users[each.key].user
   database            = each.key
