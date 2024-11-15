@@ -70,6 +70,13 @@ moved {
   to   = azurerm_postgresql_flexible_server.main
 }
 
+# issue https://github.com/hashicorp/terraform-provider-azurerm/issues/22936
+resource "terraform_data" "collation_case_hack" {
+  for_each = var.databases
+
+  triggers_replace = [lower(each.value.charset), lower(each.value.collation)]
+}
+
 resource "azurerm_postgresql_flexible_server_database" "main" {
   for_each = var.databases
 
@@ -77,6 +84,11 @@ resource "azurerm_postgresql_flexible_server_database" "main" {
   server_id = azurerm_postgresql_flexible_server.main.id
   charset   = each.value.charset
   collation = each.value.collation
+
+  lifecycle {
+    ignore_changes       = [charset, collation]
+    replace_triggered_by = [terraform_data.collation_case_hack[each.key]]
+  }
 }
 
 moved {
