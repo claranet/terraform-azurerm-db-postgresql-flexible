@@ -40,67 +40,67 @@ variable "administrator_password" {
 }
 
 variable "tier" {
-  description = "Tier for PostgreSQL Flexible Server SKU. See [documentation](https://docs.microsoft.com/en-us/azure/postgresql/flexible-server/concepts-compute-storage). Possible values are: `GeneralPurpose`, `Burstable` and `MemoryOptimized`."
+  description = "Tier for PostgreSQL Flexible server SKU. See [documentation](https://docs.microsoft.com/en-us/azure/postgresql/flexible-server/concepts-compute-storage). Possible values are: `GeneralPurpose`, `Burstable` and `MemoryOptimized`."
   type        = string
   default     = "GeneralPurpose"
 }
 
 variable "size" {
-  description = "Size for PostgreSQL Flexible Server SKU. See [documentation](https://docs.microsoft.com/en-us/azure/postgresql/flexible-server/concepts-compute-storage)."
+  description = "Size for PostgreSQL Flexible server SKU. See [documentation](https://docs.microsoft.com/en-us/azure/postgresql/flexible-server/concepts-compute-storage)."
   type        = string
   default     = "D2ds_v4"
 }
 
 variable "storage_mb" {
-  description = "Storage allowed for PostgresSQL Flexible Server. See [documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server#storage_mb)."
+  description = "Storage allowed for PostgresSQL Flexible server. See [documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server#storage_mb)."
   type        = number
   default     = 32768
 }
 
 variable "auto_grow_enabled" {
-  description = "Enable auto grow for the PostgreSQL Flexible Server."
+  description = "Enable auto grow for the PostgreSQL Flexible server."
   type        = bool
   default     = false
 }
 
 variable "postgresql_version" {
-  description = "Version of PostgreSQL Flexible Server. Possible values are in the [documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server#version)."
+  description = "Version of PostgreSQL Flexible server. Possible values are in the [documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server#version)."
   type        = number
   default     = 16
 }
 
 variable "delegated_subnet_id" {
-  description = "ID of the Subnet to create the PostgreSQL Flexible Server. No resources to be deployed in it."
+  description = "ID of the Subnet to create the PostgreSQL Flexible server. No resources to be deployed in it."
   type        = string
   default     = null
 }
 
 variable "private_dns_zone_id" {
-  description = "ID of the Private DNS Zone to create the PostgreSQL Flexible Server."
+  description = "ID of the Private DNS Zone to create the PostgreSQL Flexible server."
   type        = string
   default     = null
 }
 
 variable "public_network_access_enabled" {
-  description = "Enable public network access for the PostgreSQL Flexible Server."
+  description = "Enable public network access for the PostgreSQL Flexible server."
   type        = bool
   default     = false
 }
 
 variable "backup_retention_days" {
-  description = "Backup retention days for the PostgreSQL Flexible Server. Value should be between 7 and 35 days."
+  description = "Backup retention days for the PostgreSQL Flexible server. Value should be between 7 and 35 days."
   type        = number
   default     = 7
 }
 
 variable "geo_redundant_backup_enabled" {
-  description = "Enable Geo Redundant Backup for the PostgreSQL Flexible Server."
+  description = "Enable Geo Redundant Backup for the PostgreSQL Flexible server."
   type        = bool
   default     = false
 }
 
 variable "standby_zone" {
-  description = "Specify the Availability Zone to enable high-availability and create standby PostgreSQL Flexible Server. `null` to disable high-availability."
+  description = "Specify the Availability Zone to enable high availability and create standby PostgreSQL Flexible server. `null` to disable high availability."
   type        = number
   default     = 2
 }
@@ -116,7 +116,7 @@ variable "maintenance_window" {
 }
 
 variable "authentication" {
-  description = "Authentication configuration for the PostgreSQL Flexible Server."
+  description = "Authentication configuration for the PostgreSQL Flexible server."
   type = object({
     active_directory_auth_enabled = optional(bool)
     password_auth_enabled         = optional(bool)
@@ -126,7 +126,7 @@ variable "authentication" {
 }
 
 variable "zone" {
-  description = "Specify the Availability Zone for the PostgreSQL Flexible Server."
+  description = "Specify the Availability Zone for the PostgreSQL Flexible server."
   type        = number
   default     = 1
 }
@@ -150,7 +150,7 @@ variable "allowed_cidrs" {
 }
 
 variable "configurations" {
-  description = "PostgreSQL configuration values to set on the PostgreSQL Flexible Server."
+  description = "PostgreSQL configuration values to set on the PostgreSQL Flexible server."
   type        = map(string)
   default     = {}
 }

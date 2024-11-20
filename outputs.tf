@@ -24,32 +24,32 @@ output "module_diagnostics" {
 }
 
 output "id" {
-  description = "ID of the Azure PostgreSQL Flexible Server."
+  description = "ID of the Azure PostgreSQL Flexible server."
   value       = azurerm_postgresql_flexible_server.main.id
 }
 
 output "name" {
-  description = "Name of the Azure PostgreSQL Flexible Server."
+  description = "Name of the Azure PostgreSQL Flexible server."
   value       = azurerm_postgresql_flexible_server.main.name
 }
 
 output "fqdn" {
-  description = "FQDN of the PostgreSQL Flexible Server."
+  description = "FQDN of the PostgreSQL Flexible server."
   value       = azurerm_postgresql_flexible_server.main.fqdn
 }
 
 output "administrator_login" {
-  description = "Administrator login for PostgreSQL Flexible Server."
+  description = "Administrator login for PostgreSQL Flexible server."
   value       = azurerm_postgresql_flexible_server.main.administrator_login
 }
 
 output "administrator_password" {
-  description = "Administrator password for PostgreSQL Flexible Server."
+  description = "Administrator password for PostgreSQL Flexible server."
   value       = azurerm_postgresql_flexible_server.main.administrator_password
   sensitive   = true
 }
 
-output "database_ids" {
+output "databases_ids" {
   description = "Map of databases IDs."
   value       = local.databases_ids
 }

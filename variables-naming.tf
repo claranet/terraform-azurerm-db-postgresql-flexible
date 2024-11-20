@@ -17,9 +17,3 @@ variable "custom_name" {
   type        = string
   default     = ""
 }
-
-variable "caf_naming_for_databases_enabled" {
-  description = "Use the Azure CAF naming provider to generate databases name."
-  type        = bool
-  default     = false
-}

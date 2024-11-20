@@ -73,7 +73,7 @@ moved {
 resource "azurerm_postgresql_flexible_server_database" "main" {
   for_each = var.databases
 
-  name      = var.caf_naming_for_databases_enabled ? data.azurecaf_name.postgresql_flexible_databases[each.key].result : each.key
+  name      = each.key
   server_id = azurerm_postgresql_flexible_server.main.id
   charset   = each.value.charset
   collation = each.value.collation
