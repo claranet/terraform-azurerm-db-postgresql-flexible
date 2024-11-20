@@ -2,9 +2,9 @@ module "postgresql_flexible" {
   source  = "claranet/db-postgresql-flexible/azurerm"
   version = "x.x.x"
 
-  client_name    = var.client_name
   location       = module.azure_region.location
   location_short = module.azure_region.location_short
+  client_name    = var.client_name
   environment    = var.environment
   stack          = var.stack
 
@@ -39,8 +39,8 @@ module "postgresql_flexible" {
   }
 
   logs_destinations_ids = [
-    module.logs.logs_storage_account_id,
-    module.logs.log_analytics_workspace_id
+    module.logs.id,
+    module.logs.storage_account_id,
   ]
 
   extra_tags = {

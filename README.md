@@ -2,8 +2,9 @@
 
 [![Changelog](https://img.shields.io/badge/changelog-release-green.svg)](CHANGELOG.md) [![Notice](https://img.shields.io/badge/notice-copyright-blue.svg)](NOTICE) [![Apache V2 License](https://img.shields.io/badge/license-Apache%20V2-orange.svg)](LICENSE) [![OpenTofu Registry](https://img.shields.io/badge/opentofu-registry-yellow.svg)](https://search.opentofu.org/module/claranet/db-postgresql/azurerm/)
 
-This module creates an [Azure PostgreSQL Flexible server](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server) with [databases](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server_database) along with logging activated  [firewall rules](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server_firewall_rule).
-A user is created for each databases created with this module. This module does not allow users to create new objects in the public schema regarding the [CVE-2018-1058](https://wiki.postgresql.org/wiki/A_Guide_to_CVE-2018-1058%3A_Protect_Your_Search_Path#Do_not_allow_users_to_create_new_objects_in_the_public_schema).
+This module creates an [Azure PostgreSQL Flexible Server](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server) with [databases](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server_database), along with enabled logging and [firewall rules](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server_firewall_rule).
+
+A user is created for each database created in this module. This module does not allow users to create new objects in the public schema regarding vulnerability [CVE-2018-1058](https://wiki.postgresql.org/wiki/A_Guide_to_CVE-2018-1058%3A_Protect_Your_Search_Path#Do_not_allow_users_to_create_new_objects_in_the_public_schema).
 
 <!-- BEGIN_TF_DOCS -->
 ## Global versioning rule for Claranet Azure modules
@@ -40,9 +41,9 @@ module "postgresql_flexible" {
   source  = "claranet/db-postgresql-flexible/azurerm"
   version = "x.x.x"
 
-  client_name    = var.client_name
   location       = module.azure_region.location
   location_short = module.azure_region.location_short
+  client_name    = var.client_name
   environment    = var.environment
   stack          = var.stack
 
@@ -77,8 +78,8 @@ module "postgresql_flexible" {
   }
 
   logs_destinations_ids = [
-    module.logs.logs_storage_account_id,
-    module.logs.log_analytics_workspace_id
+    module.logs.id,
+    module.logs.storage_account_id,
   ]
 
   extra_tags = {
@@ -143,7 +144,7 @@ module "postgresql_configuration" {
 | [azurerm_postgresql_flexible_server_database.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server_database) | resource |
 | [azurerm_postgresql_flexible_server_firewall_rule.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server_firewall_rule) | resource |
 | [random_password.administrator_password](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/password) | resource |
-| [azurecaf_name.postgresql_flexible_dbs](https://registry.terraform.io/providers/claranet/azurecaf/latest/docs/data-sources/name) | data source |
+| [azurecaf_name.postgresql_flexible_databases](https://registry.terraform.io/providers/claranet/azurecaf/latest/docs/data-sources/name) | data source |
 | [azurecaf_name.postgresql_flexible_server](https://registry.terraform.io/providers/claranet/azurecaf/latest/docs/data-sources/name) | data source |
 
 ## Inputs
@@ -153,59 +154,60 @@ module "postgresql_configuration" {
 | administrator\_login | PostgreSQL administrator login. | `string` | n/a | yes |
 | administrator\_password | PostgreSQL administrator password. Strong password definition in the [documentation](https://docs.microsoft.com/en-us/sql/relational-databases/security/strong-passwords?view=sql-server-2017). | `string` | `null` | no |
 | allowed\_cidrs | Map of allowed CIDRs. | `map(string)` | n/a | yes |
-| authentication | Authentication configurations for the PostgreSQL Flexible server | <pre>object({<br/>    active_directory_auth_enabled = optional(bool)<br/>    password_auth_enabled         = optional(bool)<br/>    tenant_id                     = optional(string)<br/>  })</pre> | `{}` | no |
+| authentication | Authentication configuration for the PostgreSQL Flexible Server. | <pre>object({<br/>    active_directory_auth_enabled = optional(bool)<br/>    password_auth_enabled         = optional(bool)<br/>    tenant_id                     = optional(string)<br/>  })</pre> | `null` | no |
 | auto\_grow\_enabled | Enable auto grow for the PostgreSQL Flexible Server. | `bool` | `false` | no |
-| backup\_retention\_days | Backup retention days for the PostgreSQL Flexible server. Value should be between 7 and 35 days. | `number` | `7` | no |
+| backup\_retention\_days | Backup retention days for the PostgreSQL Flexible Server. Value should be between 7 and 35 days. | `number` | `7` | no |
 | caf\_naming\_for\_databases\_enabled | Use the Azure CAF naming provider to generate databases name. | `bool` | `false` | no |
 | client\_name | Client name/account used in naming. | `string` | n/a | yes |
-| configurations | PostgreSQL configurations to enable. | `map(string)` | `{}` | no |
-| custom\_name | Custom Server Name identifier. | `string` | `""` | no |
+| configurations | PostgreSQL configuration values to set on the PostgreSQL Flexible Server. | `map(string)` | `{}` | no |
+| custom\_name | Custom server name. | `string` | `""` | no |
 | databases | Map of databases configurations with database name as key and following available configuration option:<br/>   *  (optional) charset: Valid PostgreSQL charset : https://www.postgresql.org/docs/current/multibyte.html#CHARSET-TABLE<br/>   *  (optional) collation: Valid PostgreSQL collation : http://www.postgresql.cn/docs/13/collation.html - be careful about https://docs.microsoft.com/en-us/windows/win32/intl/locale-names?redirectedfrom=MSDN | <pre>map(object({<br/>    charset   = optional(string, "UTF8")<br/>    collation = optional(string, "en_US.utf8")<br/>  }))</pre> | `{}` | no |
-| delegated\_subnet\_id | ID of the subnet to create the PostgreSQL Flexible server. Should not have any resource deployed in. | `string` | `null` | no |
+| default\_tags\_enabled | Option to enable or disable default tags. | `bool` | `true` | no |
+| delegated\_subnet\_id | ID of the Subnet to create the PostgreSQL Flexible Server. No resources to be deployed in it. | `string` | `null` | no |
 | diagnostic\_settings\_custom\_name | Custom name of the diagnostics settings, name will be 'default' if not set. | `string` | `"default"` | no |
 | environment | Project environment. | `string` | n/a | yes |
 | extra\_tags | Map of custom tags. | `map(string)` | `{}` | no |
-| geo\_redundant\_backup\_enabled | Enable Geo Redundant Backup for the PostgreSQL Flexible server. | `bool` | `false` | no |
+| geo\_redundant\_backup\_enabled | Enable Geo Redundant Backup for the PostgreSQL Flexible Server. | `bool` | `false` | no |
 | location | Azure location. | `string` | n/a | yes |
 | location\_short | Short string for Azure location. | `string` | n/a | yes |
 | logs\_categories | Log categories to send to destinations. | `list(string)` | `null` | no |
 | logs\_destinations\_ids | List of destination resources IDs for logs diagnostic destination.<br/>Can be `Storage Account`, `Log Analytics Workspace` and `Event Hub`. No more than one of each can be set.<br/>If you want to use Azure EventHub as a destination, you must provide a formatted string containing both the EventHub Namespace authorization send ID and the EventHub name (name of the queue to use in the Namespace) separated by the <code>&#124;</code> character. | `list(string)` | n/a | yes |
 | logs\_metrics\_categories | Metrics categories to send to destinations. | `list(string)` | `null` | no |
-| maintenance\_window | Map of maintenance window configuration. | `map(number)` | `null` | no |
+| maintenance\_window | Map of maintenance window configuration. | <pre>object({<br/>    day_of_week  = optional(number, 0)<br/>    start_hour   = optional(number, 0)<br/>    start_minute = optional(number, 0)<br/>  })</pre> | `null` | no |
 | name\_prefix | Optional prefix for the generated name. | `string` | `""` | no |
 | name\_suffix | Optional suffix for the generated name. | `string` | `""` | no |
 | postgresql\_version | Version of PostgreSQL Flexible Server. Possible values are in the [documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server#version). | `number` | `16` | no |
-| private\_dns\_zone\_id | ID of the private DNS zone to create the PostgreSQL Flexible server. | `string` | `null` | no |
-| public\_network\_access\_enabled | Enable public network access for the PostgreSQL Flexible server. | `bool` | `false` | no |
-| resource\_group\_name | Resource group name. | `string` | n/a | yes |
-| size | Size for PostgreSQL Flexible server SKU. See [documentation](https://docs.microsoft.com/en-us/azure/postgresql/flexible-server/concepts-compute-storage). | `string` | `"D2ds_v4"` | no |
+| private\_dns\_zone\_id | ID of the Private DNS Zone to create the PostgreSQL Flexible Server. | `string` | `null` | no |
+| public\_network\_access\_enabled | Enable public network access for the PostgreSQL Flexible Server. | `bool` | `false` | no |
+| resource\_group\_name | Resource Group name. | `string` | n/a | yes |
+| size | Size for PostgreSQL Flexible Server SKU. See [documentation](https://docs.microsoft.com/en-us/azure/postgresql/flexible-server/concepts-compute-storage). | `string` | `"D2ds_v4"` | no |
 | stack | Project stack name. | `string` | n/a | yes |
-| standby\_zone | Specify availability-zone to enable high-availability and create standby PostgreSQL Flexible Server. `null` to disable high-availability. | `number` | `2` | no |
-| storage\_mb | Storage allowed for PostgresSQL Flexible server. See [documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server#storage_mb). | `number` | `32768` | no |
-| tier | Tier for PostgreSQL Flexible server SKU. See [documentation](https://docs.microsoft.com/en-us/azure/postgresql/flexible-server/concepts-compute-storage). Possible values are: `GeneralPurpose`, `Burstable`, `MemoryOptimized`. | `string` | `"GeneralPurpose"` | no |
-| zone | Specify availability-zone for PostgreSQL Flexible main server. | `number` | `1` | no |
+| standby\_zone | Specify the Availability Zone to enable high-availability and create standby PostgreSQL Flexible Server. `null` to disable high-availability. | `number` | `2` | no |
+| storage\_mb | Storage allowed for PostgresSQL Flexible Server. See [documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server#storage_mb). | `number` | `32768` | no |
+| tier | Tier for PostgreSQL Flexible Server SKU. See [documentation](https://docs.microsoft.com/en-us/azure/postgresql/flexible-server/concepts-compute-storage). Possible values are: `GeneralPurpose`, `Burstable` and `MemoryOptimized`. | `string` | `"GeneralPurpose"` | no |
+| zone | Specify the Availability Zone for the PostgreSQL Flexible Server. | `number` | `1` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| administrator\_login | Administrator login for PostgreSQL Flexible server. |
-| administrator\_password | Administrator password for PostgreSQL Flexible server. |
-| configurations | The map of all PostgreSQL configurations set. |
-| database\_ids | The map of all database resource IDs. |
+| administrator\_login | Administrator login for PostgreSQL Flexible Server. |
+| administrator\_password | Administrator password for PostgreSQL Flexible Server. |
+| configurations | Map of all PostgreSQL configurations. |
+| database\_ids | Map of databases IDs. |
 | databases\_names | Map of databases names. |
-| firewall\_rules | Map of PostgreSQL created rules. |
-| fqdn | FQDN of the PostgreSQL server. |
-| id | ID of the Azure PostgreSQL Flexible server. |
+| firewall\_rules\_ids | Map of firewall rules IDs. |
+| fqdn | FQDN of the PostgreSQL Flexible Server. |
+| id | ID of the Azure PostgreSQL Flexible Server. |
 | module\_diagnostics | Diagnostics settings module outputs. |
-| name | Name of the Azure PostgreSQL Flexible server. |
+| name | Name of the Azure PostgreSQL Flexible Server. |
 | resource | Azure PostgreSQL server resource object. |
 | resource\_configuration | Azure PostgreSQL configuration resource object. |
 | resource\_database | Azure PostgreSQL database resource object. |
 | resource\_firewall\_rule | Azure PostgreSQL server firewall rule resource object. |
-| server\_id | PostgreSQL server ID. |
-| terraform\_module | Information about this Terraform module |
+| terraform\_module | Information about this Terraform module. |
 <!-- END_TF_DOCS -->
+
 ## Related documentation
 
 Microsoft Azure documentation: [docs.microsoft.com/fr-fr/azure/postgresql/flexible-server/](https://docs.microsoft.com/fr-fr/azure/postgresql/flexible-server/)

@@ -24,7 +24,7 @@ variable "vnet_cidr" {
 }
 
 variable "subnet_cidr" {
-  description = "CIDR for the subnet."
+  description = "CIDR for the Subnet."
   type        = string
 }
 

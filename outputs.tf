@@ -24,59 +24,53 @@ output "module_diagnostics" {
 }
 
 output "id" {
-  description = "ID of the Azure PostgreSQL Flexible server."
+  description = "ID of the Azure PostgreSQL Flexible Server."
   value       = azurerm_postgresql_flexible_server.main.id
 }
 
 output "name" {
-  description = "Name of the Azure PostgreSQL Flexible server."
-  value       = local.name
+  description = "Name of the Azure PostgreSQL Flexible Server."
+  value       = azurerm_postgresql_flexible_server.main.name
+}
+
+output "fqdn" {
+  description = "FQDN of the PostgreSQL Flexible Server."
+  value       = azurerm_postgresql_flexible_server.main.fqdn
 }
 
 output "administrator_login" {
-  description = "Administrator login for PostgreSQL Flexible server."
+  description = "Administrator login for PostgreSQL Flexible Server."
   value       = azurerm_postgresql_flexible_server.main.administrator_login
-  sensitive   = true
 }
 
 output "administrator_password" {
-  description = "Administrator password for PostgreSQL Flexible server."
-  value       = local.administrator_password
+  description = "Administrator password for PostgreSQL Flexible Server."
+  value       = azurerm_postgresql_flexible_server.main.administrator_password
   sensitive   = true
+}
+
+output "database_ids" {
+  description = "Map of databases IDs."
+  value       = local.databases_ids
 }
 
 output "databases_names" {
   description = "Map of databases names."
-  value       = azurerm_postgresql_flexible_server_database.main
+  value       = local.databases_names
 }
 
-output "database_ids" {
-  description = "The map of all database resource IDs."
-  value       = azurerm_postgresql_flexible_server_database.main
-}
-
-output "firewall_rules" {
-  description = "Map of PostgreSQL created rules."
-  value       = azurerm_postgresql_flexible_server_firewall_rule.main
-}
-
-output "fqdn" {
-  description = "FQDN of the PostgreSQL server."
-  value       = azurerm_postgresql_flexible_server.main.fqdn
-}
-
-output "server_id" {
-  description = "PostgreSQL server ID."
-  value       = azurerm_postgresql_flexible_server.main.id
+output "firewall_rules_ids" {
+  description = "Map of firewall rules IDs."
+  value       = local.firewall_rules_ids
 }
 
 output "configurations" {
-  description = "The map of all PostgreSQL configurations set."
-  value       = azurerm_postgresql_flexible_server_configuration.main
+  description = "Map of all PostgreSQL configurations."
+  value       = local.configurations
 }
 
 output "terraform_module" {
-  description = "Information about this Terraform module"
+  description = "Information about this Terraform module."
   value = {
     name       = "db-postgresql-flexible"
     provider   = "azurerm"

@@ -13,8 +13,8 @@ variable "name_suffix" {
 
 # Custom naming override
 variable "custom_name" {
+  description = "Custom server name."
   type        = string
-  description = "Custom Server Name identifier."
   default     = ""
 }
 

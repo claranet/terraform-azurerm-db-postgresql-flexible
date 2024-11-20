@@ -8,7 +8,7 @@ data "azurecaf_name" "postgresql_flexible_server" {
   separator     = "-"
 }
 
-data "azurecaf_name" "postgresql_flexible_dbs" {
+data "azurecaf_name" "postgresql_flexible_databases" {
   for_each = var.databases
 
   name          = var.stack
