@@ -1,100 +1,65 @@
-module "azure_region" {
-  source  = "claranet/regions/azurerm"
-  version = "x.x.x"
-
-  azure_region = var.azure_region
-}
-
-module "rg" {
-  source  = "claranet/rg/azurerm"
-  version = "x.x.x"
-
-  location    = module.azure_region.location
-  client_name = var.client_name
-  environment = var.environment
-  stack       = var.stack
-}
-
-module "logs" {
-  source  = "claranet/run/azurerm//modules/logs"
-  version = "x.x.x"
-
-  client_name         = var.client_name
-  environment         = var.environment
-  stack               = var.stack
-  location            = module.azure_region.location
-  location_short      = module.azure_region.location_short
-  resource_group_name = module.rg.resource_group_name
-}
-
 module "vnet" {
   source  = "claranet/vnet/azurerm"
   version = "x.x.x"
 
-  environment    = var.environment
   location       = module.azure_region.location
   location_short = module.azure_region.location_short
   client_name    = var.client_name
+  environment    = var.environment
   stack          = var.stack
 
-  resource_group_name = module.rg.resource_group_name
+  resource_group_name = module.rg.name
 
-  vnet_cidr = [var.vnet_cidr]
+  cidrs = [var.vnet_cidr]
 }
 
 module "subnet" {
   source  = "claranet/subnet/azurerm"
   version = "x.x.x"
 
-  environment    = var.environment
   location_short = module.azure_region.location_short
   client_name    = var.client_name
+  environment    = var.environment
   stack          = var.stack
 
-  resource_group_name  = module.rg.resource_group_name
-  virtual_network_name = module.vnet.virtual_network_name
+  resource_group_name = module.rg.name
 
-  subnet_cidr_list = [var.subnet_cidr]
+  virtual_network_name = module.vnet.name
+
+  cidrs = [var.subnet_cidr]
 
   service_endpoints = lookup(each.value, "service_endpoints", null)
-  subnet_delegation = {
-    postgresql-flexible = [
-      {
-        name    = "Microsoft.DBforPostgreSQL/flexibleServers"
-        actions = ["Microsoft.Network/virtualNetworks/subnets/join/action"]
-      }
-    ]
+  delegations = {
+    "Microsoft.DBforPostgreSQL/flexibleServers" = [{
+      name    = "Microsoft.DBforPostgreSQL/flexibleServers"
+      actions = ["Microsoft.Network/virtualNetworks/subnets/join/action"]
+    }]
   }
 }
 
 resource "azurerm_private_dns_zone" "postgres" {
   name                = format("%s-%s.postgres.database.azure.com", var.environment, var.stack)
-  resource_group_name = module.rg.resource_group_name
+  resource_group_name = module.rg.name
 }
 
 resource "azurerm_private_dns_zone_virtual_network_link" "postgres" {
-  name                = format("%s_dns_zone_postgres_%s", var.stack, var.environment)
-  resource_group_name = module.rg.resource_group_name
-
+  name                  = format("%s_dns_zone_postgres_%s", var.stack, var.environment)
+  resource_group_name   = module.rg.name
   private_dns_zone_name = azurerm_private_dns_zone.postgres.name
-  virtual_network_id    = module.vnet.virtual_network_id
+  virtual_network_id    = module.vnet.id
 }
 
 module "postgresql_flexible" {
   source  = "claranet/db-postgresql-flexible/azurerm"
   version = "x.x.x"
 
-  client_name    = var.client_name
   location       = module.azure_region.location
   location_short = module.azure_region.location_short
+  client_name    = var.client_name
   environment    = var.environment
   stack          = var.stack
 
-  resource_group_name = module.rg.resource_group_name
-
-  depends_on = [
-    azurerm_private_dns_zone_virtual_network_link.postgres
-  ]
+  resource_group_name = azurerm_private_dns_zone_virtual_network_link.postgres.resource_group_name
 
   tier               = "GeneralPurpose"
   size               = "D2s_v3"
@@ -125,13 +90,13 @@ module "postgresql_flexible" {
     start_minute = 0
   }
 
-  logs_destinations_ids = [
-    module.logs.logs_storage_account_id,
-    module.logs.log_analytics_workspace_id
-  ]
-
   private_dns_zone_id = azurerm_private_dns_zone.postgres.id
-  delegated_subnet_id = module.subnet.subnet_id
+  delegated_subnet_id = module.subnet.id
+
+  logs_destinations_ids = [
+    module.logs.id,
+    module.logs.storage_account_id,
+  ]
 
   extra_tags = {
     foo = "bar"

@@ -11,21 +11,9 @@ variable "name_suffix" {
   default     = ""
 }
 
-variable "use_caf_naming" {
-  description = "Use the Azure CAF naming provider to generate default resource name. `custom_server_name` override this if set. Legacy default name is used if this is set to `false`."
-  type        = bool
-  default     = true
-}
-
 # Custom naming override
-variable "custom_server_name" {
+variable "custom_name" {
+  description = "Custom server name."
   type        = string
-  description = "Custom Server Name identifier."
   default     = ""
-}
-
-variable "use_caf_naming_for_databases" {
-  description = "Use the Azure CAF naming provider to generate databases name."
-  type        = bool
-  default     = false
 }

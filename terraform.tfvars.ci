@@ -1,11 +1,11 @@
-client_name            = "test"
-environment            = "dev"
 location               = "westeurope"
 location_short         = "euw"
-logs_destinations_ids  = []
-resource_group_name    = "test"
+client_name            = "test"
+environment            = "dev"
 stack                  = "test"
-databases_names        = ["mydatabase"]
-allowed_cidrs          = { "1" = "12.34.56.78/32" }
+resource_group_name    = "test"
 administrator_login    = "admin"
 administrator_password = "adminpass"
+allowed_cidrs          = { "1" = "12.34.56.78/32" }
+vnet_cidr              = "10.0.0.0/24"
+subnet_cidr            = "10.0.0.0/24"
