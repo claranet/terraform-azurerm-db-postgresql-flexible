@@ -28,10 +28,11 @@ resource "azurerm_postgresql_flexible_server" "main" {
   geo_redundant_backup_enabled = var.geo_redundant_backup_enabled
 
   dynamic "high_availability" {
-    for_each = toset(var.standby_zone != null && var.tier != "Burstable" ? [var.standby_zone] : [])
+    # for_each = toset(var.standby_zone != null && var.tier != "Burstable" ? [var.standby_zone] : [])
+    for_each = var.high_availability[*]
     content {
-      mode                      = var.high_availability_mode
-      standby_availability_zone = var.high_availability_mode == "SameZone" ? var.zone : high_availability.value
+      mode                      = high_availability.value.mode
+      standby_availability_zone = high_availability.value.mode == "SameZone" ? var.zone : high_availability.value.standby_availability_zone
     }
   }
 
@@ -61,6 +62,10 @@ resource "azurerm_postgresql_flexible_server" "main" {
     precondition {
       condition     = var.private_dns_zone_id != null && var.delegated_subnet_id != null || var.private_dns_zone_id == null && var.delegated_subnet_id == null
       error_message = "var.private_dns_zone_id and var.delegated_subnet_id should either both be set or none of them."
+    }
+    precondition {
+      condition     = (var.tier != "Burstable") || (var.tier == "Burstable" && var.high_availability == null)
+      error_message = "var.high_availability should be null for Burstable tier."
     }
   }
 }

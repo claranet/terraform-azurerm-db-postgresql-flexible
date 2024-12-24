@@ -168,7 +168,7 @@ module "postgresql_configuration" {
 | environment | Project environment. | `string` | n/a | yes |
 | extra\_tags | Map of custom tags. | `map(string)` | `{}` | no |
 | geo\_redundant\_backup\_enabled | Enable Geo Redundant Backup for the PostgreSQL Flexible server. | `bool` | `false` | no |
-| high\_availability\_mode | High availability mode for the PostgreSQL Flexible server. Possible values are `SameZone` or `ZoneRedundant`. See [documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server#mode-1). | `string` | `"ZoneRedundant"` | no |
+| high\_availability | Object of high availability configuration. See [documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server#mode-1). | <pre>object({<br/>    mode                      = optional(string, "ZoneRedundant")<br/>    standby_availability_zone = optional(number, 2)<br/>  })</pre> | `{}` | no |
 | location | Azure location. | `string` | n/a | yes |
 | location\_short | Short string for Azure location. | `string` | n/a | yes |
 | logs\_categories | Log categories to send to destinations. | `list(string)` | `null` | no |
@@ -183,7 +183,6 @@ module "postgresql_configuration" {
 | resource\_group\_name | Resource Group name. | `string` | n/a | yes |
 | size | Size for PostgreSQL Flexible server SKU. See [documentation](https://docs.microsoft.com/en-us/azure/postgresql/flexible-server/concepts-compute-storage). | `string` | `"D2ds_v4"` | no |
 | stack | Project stack name. | `string` | n/a | yes |
-| standby\_zone | Specify the Availability Zone to enable high availability and create standby PostgreSQL Flexible server. `null` to disable high availability. | `number` | `2` | no |
 | storage\_mb | Storage allowed for PostgresSQL Flexible server. See [documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server#storage_mb). | `number` | `32768` | no |
 | tier | Tier for PostgreSQL Flexible server SKU. See [documentation](https://docs.microsoft.com/en-us/azure/postgresql/flexible-server/concepts-compute-storage). Possible values are: `GeneralPurpose`, `Burstable` and `MemoryOptimized`. | `string` | `"GeneralPurpose"` | no |
 | zone | Specify the Availability Zone for the PostgreSQL Flexible server. | `number` | `1` | no |
