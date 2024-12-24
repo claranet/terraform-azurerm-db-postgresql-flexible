@@ -28,7 +28,6 @@ resource "azurerm_postgresql_flexible_server" "main" {
   geo_redundant_backup_enabled = var.geo_redundant_backup_enabled
 
   dynamic "high_availability" {
-    # for_each = toset(var.standby_zone != null && var.tier != "Burstable" ? [var.standby_zone] : [])
     for_each = var.high_availability[*]
     content {
       mode                      = high_availability.value.mode
@@ -59,6 +58,10 @@ resource "azurerm_postgresql_flexible_server" "main" {
   tags = merge(local.default_tags, var.extra_tags)
 
   lifecycle {
+    ignore_changes = [
+      high_availability[0].standby_availability_zone,
+      zone
+    ]
     precondition {
       condition     = var.private_dns_zone_id != null && var.delegated_subnet_id != null || var.private_dns_zone_id == null && var.delegated_subnet_id == null
       error_message = "var.private_dns_zone_id and var.delegated_subnet_id should either both be set or none of them."
