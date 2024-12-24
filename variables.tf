@@ -154,3 +154,10 @@ variable "configurations" {
   type        = map(string)
   default     = {}
 }
+
+variable "high_availability_mode" {
+  description = "High availability mode for the PostgreSQL Flexible server. Possible values are `SameZone` or `ZoneRedundant`. See [documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server#mode-1)."
+  type        = string
+  default     = "ZoneRedundant"
+  nullable    = false
+}

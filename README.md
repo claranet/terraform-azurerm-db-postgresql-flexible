@@ -168,6 +168,7 @@ module "postgresql_configuration" {
 | environment | Project environment. | `string` | n/a | yes |
 | extra\_tags | Map of custom tags. | `map(string)` | `{}` | no |
 | geo\_redundant\_backup\_enabled | Enable Geo Redundant Backup for the PostgreSQL Flexible server. | `bool` | `false` | no |
+| high\_availability\_mode | High availability mode for the PostgreSQL Flexible server. Possible values are `SameZone` or `ZoneRedundant`. See [documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server#mode-1). | `string` | `"ZoneRedundant"` | no |
 | location | Azure location. | `string` | n/a | yes |
 | location\_short | Short string for Azure location. | `string` | n/a | yes |
 | logs\_categories | Log categories to send to destinations. | `list(string)` | `null` | no |
