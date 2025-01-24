@@ -1,3 +1,26 @@
+## 8.1.0 (2025-01-24)
+
+### Features
+
+* **AZ-1491:** add SameZone HA mode 5386106
+* **AZ-1491:** add SameZone HA mode using same model as mysql-flexible module 9c73949
+* **AZ-1491:** ignore_changes on zone and standby_availabitility_zone in case of failover 4b69684
+* hack for collation case issue e3e3415
+
+### Miscellaneous Chores
+
+* **deps:** update dependency opentofu to v1.8.6 2e20840
+* **deps:** update dependency opentofu to v1.8.8 84a34fc
+* **deps:** update dependency opentofu to v1.9.0 f87338f
+* **deps:** update dependency pre-commit to v4.1.0 69bdec9
+* **deps:** update dependency tflint to v0.55.0 29460c0
+* **deps:** update dependency trivy to v0.58.1 e8f7528
+* **deps:** update dependency trivy to v0.58.2 a41cecc
+* **deps:** update pre-commit hook alessandrojcm/commitlint-pre-commit-hook to v9.19.0 5884b89
+* **deps:** update pre-commit hook alessandrojcm/commitlint-pre-commit-hook to v9.20.0 5f5a22a
+* **deps:** update tools 4cc8388
+* update tflint config for v0.55.0 f3b46cd
+
 ## 8.0.0 (2024-11-21)
 
 ### ⚠ BREAKING CHANGES
