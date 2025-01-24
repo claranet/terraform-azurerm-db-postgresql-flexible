@@ -99,12 +99,6 @@ variable "geo_redundant_backup_enabled" {
   default     = false
 }
 
-variable "standby_zone" {
-  description = "Specify the Availability Zone to enable high availability and create standby PostgreSQL Flexible server. `null` to disable high availability."
-  type        = number
-  default     = 2
-}
-
 variable "maintenance_window" {
   description = "Map of maintenance window configuration."
   type = object({
@@ -153,4 +147,13 @@ variable "configurations" {
   description = "PostgreSQL configuration values to set on the PostgreSQL Flexible server."
   type        = map(string)
   default     = {}
+}
+
+variable "high_availability" {
+  description = "Object of high availability configuration. See [documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server#mode-1)."
+  type = object({
+    mode                      = optional(string, "ZoneRedundant")
+    standby_availability_zone = optional(number, 2)
+  })
+  default = {}
 }
