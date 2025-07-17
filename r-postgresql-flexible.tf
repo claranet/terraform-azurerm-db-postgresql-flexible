@@ -105,7 +105,7 @@ moved {
 }
 
 resource "azurerm_postgresql_flexible_server_firewall_rule" "main" {
-  for_each = var.delegated_subnet_id == null ? var.allowed_cidrs : {}
+  for_each = var.allowed_cidrs
 
   name             = each.key
   server_id        = azurerm_postgresql_flexible_server.main.id
