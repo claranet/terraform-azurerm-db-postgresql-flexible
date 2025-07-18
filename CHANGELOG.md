@@ -1,3 +1,43 @@
+## 8.2.0 (2025-07-18)
+
+### Features
+
+* ✨ change `delegated_subnet_id` and `private_dns_zone_id` to objects 29b69e0
+
+### Code Refactoring
+
+* **variables:** ✨♻️ change `delegated_subnet_id` and `private_dns_zone_id` to objects db556c7
+
+### Miscellaneous Chores
+
+* **⚙️:** ✏️ update template identifier for MR review c685f74
+* 🗑️ remove old commitlint configuration files d29201c
+* apply suggestions faf728f
+* **deps:** update dependency opentofu to v1.10.0 d9cf50c
+* **deps:** update dependency opentofu to v1.10.1 e9414d0
+* **deps:** update dependency opentofu to v1.10.3 b594844
+* **deps:** update dependency opentofu to v1.9.1 a4ae6e7
+* **deps:** update dependency pre-commit to v4.2.0 1d685af
+* **deps:** update dependency terraform-docs to v0.20.0 23ee649
+* **deps:** update dependency tflint to v0.55.1 de4716a
+* **deps:** update dependency tflint to v0.57.0 e106b32
+* **deps:** update dependency tflint to v0.58.0 2e20c49
+* **deps:** update dependency tflint to v0.58.1 fb335f6
+* **deps:** update dependency trivy to v0.59.0 0d11aa5
+* **deps:** update dependency trivy to v0.59.1 bc90b87
+* **deps:** update dependency trivy to v0.60.0 c1d51bf
+* **deps:** update dependency trivy to v0.61.1 a2b884e
+* **deps:** update dependency trivy to v0.62.0 6816d28
+* **deps:** update dependency trivy to v0.62.1 7f06d99
+* **deps:** update dependency trivy to v0.63.0 d20123f
+* **deps:** update pre-commit hook alessandrojcm/commitlint-pre-commit-hook to v9.21.0 968dc6a
+* **deps:** update pre-commit hook alessandrojcm/commitlint-pre-commit-hook to v9.22.0 a9d9521
+* **deps:** update pre-commit hook tofuutils/pre-commit-opentofu to v2.2.0 3d09adb
+* **deps:** update pre-commit hook tofuutils/pre-commit-opentofu to v2.2.1 39767b3
+* **deps:** update tools bd410e5
+* **deps:** update tools 162cb20
+* **release:** 8.1.1 [skip ci] 6fecab6
+* update Github templates cdad613
 
 ### Code Refactoring
 
