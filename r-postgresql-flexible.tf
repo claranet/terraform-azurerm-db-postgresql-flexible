@@ -19,8 +19,8 @@ resource "azurerm_postgresql_flexible_server" "main" {
   auto_grow_enabled = var.auto_grow_enabled
   version           = var.postgresql_version
 
-  delegated_subnet_id = var.delegated_subnet != null ? var.delegated_subnet.id : null
-  private_dns_zone_id = var.private_dns_zone != null ? var.private_dns_zone.id : null
+  delegated_subnet_id = one(var.delegated_subnet[*].id)
+  private_dns_zone_id = one(var.private_dns_zone[*].id)
 
   public_network_access_enabled = var.public_network_access_enabled
 
