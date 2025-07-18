@@ -90,8 +90,12 @@ module "postgresql_flexible" {
     start_minute = 0
   }
 
-  private_dns_zone_id = azurerm_private_dns_zone.postgres.id
-  delegated_subnet_id = module.subnet.id
+  private_dns_zone = {
+    id = azurerm_private_dns_zone.postgres.id
+  }
+  delegated_subnet = {
+    id = module.subnet.id
+  }
 
   logs_destinations_ids = [
     module.logs.id,

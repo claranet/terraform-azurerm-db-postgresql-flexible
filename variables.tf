@@ -69,16 +69,20 @@ variable "postgresql_version" {
   default     = 16
 }
 
-variable "delegated_subnet_id" {
+variable "delegated_subnet" {
   description = "ID of the Subnet to create the PostgreSQL Flexible server. No resources to be deployed in it."
-  type        = string
-  default     = null
+  type = object({
+    id = string
+  })
+  default = null
 }
 
-variable "private_dns_zone_id" {
+variable "private_dns_zone" {
   description = "ID of the Private DNS Zone to create the PostgreSQL Flexible server."
-  type        = string
-  default     = null
+  type = object({
+    id = string
+  })
+  default = null
 }
 
 variable "public_network_access_enabled" {
