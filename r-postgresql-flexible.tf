@@ -19,8 +19,8 @@ resource "azurerm_postgresql_flexible_server" "main" {
   auto_grow_enabled = var.auto_grow_enabled
   version           = var.postgresql_version
 
-  delegated_subnet_id = var.delegated_subnet_id
-  private_dns_zone_id = var.private_dns_zone_id
+  delegated_subnet_id = one(var.delegated_subnet[*].id)
+  private_dns_zone_id = one(var.private_dns_zone[*].id)
 
   public_network_access_enabled = var.public_network_access_enabled
 
@@ -63,8 +63,8 @@ resource "azurerm_postgresql_flexible_server" "main" {
       zone
     ]
     precondition {
-      condition     = var.private_dns_zone_id != null && var.delegated_subnet_id != null || var.private_dns_zone_id == null && var.delegated_subnet_id == null
-      error_message = "var.private_dns_zone_id and var.delegated_subnet_id should either both be set or none of them."
+      condition     = var.private_dns_zone != null && var.delegated_subnet != null || var.private_dns_zone == null && var.delegated_subnet == null
+      error_message = "var.private_dns_zone and var.delegated_subnet should either both be set or none of them."
     }
     precondition {
       condition     = (var.tier != "Burstable") || (var.tier == "Burstable" && var.high_availability == null)
@@ -105,7 +105,7 @@ moved {
 }
 
 resource "azurerm_postgresql_flexible_server_firewall_rule" "main" {
-  for_each = var.delegated_subnet_id == null ? var.allowed_cidrs : {}
+  for_each = var.delegated_subnet == null ? var.allowed_cidrs : {}
 
   name             = each.key
   server_id        = azurerm_postgresql_flexible_server.main.id

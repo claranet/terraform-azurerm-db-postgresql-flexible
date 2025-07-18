@@ -163,7 +163,7 @@ module "postgresql_configuration" {
 | custom\_name | Custom server name. | `string` | `""` | no |
 | databases | Map of databases configurations with database name as key and following available configuration option:<br/>   *  (optional) charset: Valid PostgreSQL charset : https://www.postgresql.org/docs/current/multibyte.html#CHARSET-TABLE<br/>   *  (optional) collation: Valid PostgreSQL collation : http://www.postgresql.cn/docs/13/collation.html - be careful about https://docs.microsoft.com/en-us/windows/win32/intl/locale-names?redirectedfrom=MSDN | <pre>map(object({<br/>    charset   = optional(string, "UTF8")<br/>    collation = optional(string, "en_US.utf8")<br/>  }))</pre> | `{}` | no |
 | default\_tags\_enabled | Option to enable or disable default tags. | `bool` | `true` | no |
-| delegated\_subnet\_id | ID of the Subnet to create the PostgreSQL Flexible server. No resources to be deployed in it. | `string` | `null` | no |
+| delegated\_subnet | ID of the Subnet to create the PostgreSQL Flexible server. No resources to be deployed in it. | <pre>object({<br/>    id = string<br/>  })</pre> | `null` | no |
 | diagnostic\_settings\_custom\_name | Custom name of the diagnostics settings, name will be 'default' if not set. | `string` | `"default"` | no |
 | environment | Project environment. | `string` | n/a | yes |
 | extra\_tags | Map of custom tags. | `map(string)` | `{}` | no |
@@ -178,7 +178,7 @@ module "postgresql_configuration" {
 | name\_prefix | Optional prefix for the generated name. | `string` | `""` | no |
 | name\_suffix | Optional suffix for the generated name. | `string` | `""` | no |
 | postgresql\_version | Version of PostgreSQL Flexible server. Possible values are in the [documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server#version). | `number` | `16` | no |
-| private\_dns\_zone\_id | ID of the Private DNS Zone to create the PostgreSQL Flexible server. | `string` | `null` | no |
+| private\_dns\_zone | ID of the Private DNS Zone to create the PostgreSQL Flexible server. | <pre>object({<br/>    id = string<br/>  })</pre> | `null` | no |
 | public\_network\_access\_enabled | Enable public network access for the PostgreSQL Flexible server. | `bool` | `false` | no |
 | resource\_group\_name | Resource Group name. | `string` | n/a | yes |
 | size | Size for PostgreSQL Flexible server SKU. See [documentation](https://docs.microsoft.com/en-us/azure/postgresql/flexible-server/concepts-compute-storage). | `string` | `"D2ds_v4"` | no |
