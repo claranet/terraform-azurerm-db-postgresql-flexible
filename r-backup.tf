@@ -12,7 +12,7 @@ resource "azurerm_role_assignment" "reader" {
   count = var.backup_policy_id != null ? 1 : 0
 
   principal_id         = data.azurerm_data_protection_backup_vault.main[0].identity[0].principal_id
-  scope                = azurerm_postgresql_flexible_server.main.id
+  scope                = "${data.azurerm_subscription.main.id}/resourceGroups/${azurerm_postgresql_flexible_server.main.resource_group_name}"
   role_definition_name = "Reader"
 }
 

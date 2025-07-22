@@ -3,3 +3,5 @@ data "azurerm_data_protection_backup_vault" "main" {
   name                = local.parsed_backup_vault_id.name
   resource_group_name = local.parsed_backup_vault_id.resource_group_name
 }
+
+data "azurerm_subscription" "main" {}
