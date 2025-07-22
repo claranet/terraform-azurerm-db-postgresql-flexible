@@ -5,5 +5,6 @@ locals {
     "MemoryOptimized" = "MO"
   }
 
-  administrator_password = coalesce(var.administrator_password, one(random_password.administrator_password[*].result))
+  administrator_password  = coalesce(var.administrator_password, one(random_password.administrator_password[*].result))
+  parsed_backup_policy_id = try(provider::azapi::parse_resource_id("Microsoft.DataProtection/backupVaults/backupPolicies", var.backup_policy_id), null)
 }

@@ -161,3 +161,9 @@ variable "high_availability" {
   })
   default = {}
 }
+
+variable "backup_policy_id" {
+  description = "Backup Vault policy ID to use for the PostgreSQL Flexible server."
+  type        = string
+  default     = null
+}

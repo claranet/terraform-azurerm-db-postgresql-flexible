@@ -140,6 +140,7 @@ module "postgresql_configuration" {
 
 | Name | Type |
 |------|------|
+| [azurerm_data_protection_backup_instance_postgresql_flexible_server.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/data_protection_backup_instance_postgresql_flexible_server) | resource |
 | [azurerm_postgresql_flexible_server.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server) | resource |
 | [azurerm_postgresql_flexible_server_configuration.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server_configuration) | resource |
 | [azurerm_postgresql_flexible_server_database.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server_database) | resource |
@@ -157,6 +158,7 @@ module "postgresql_configuration" {
 | allowed\_cidrs | Map of allowed CIDRs. | `map(string)` | n/a | yes |
 | authentication | Authentication configuration for the PostgreSQL Flexible server. | <pre>object({<br/>    active_directory_auth_enabled = optional(bool)<br/>    password_auth_enabled         = optional(bool)<br/>    tenant_id                     = optional(string)<br/>  })</pre> | `null` | no |
 | auto\_grow\_enabled | Enable auto grow for the PostgreSQL Flexible server. | `bool` | `false` | no |
+| backup\_policy\_id | Backup Vault policy ID to use for the PostgreSQL Flexible server. | `string` | `null` | no |
 | backup\_retention\_days | Backup retention days for the PostgreSQL Flexible server. Value should be between 7 and 35 days. | `number` | `7` | no |
 | client\_name | Client name/account used in naming. | `string` | n/a | yes |
 | configurations | PostgreSQL configuration values to set on the PostgreSQL Flexible server. | `map(string)` | `{}` | no |
