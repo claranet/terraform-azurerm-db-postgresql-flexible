@@ -9,7 +9,7 @@ resource "azurerm_data_protection_backup_instance_postgresql_flexible_server" "m
 }
 
 resource "azurerm_role_assignment" "reader" {
-  count = var.backup_policy_id != null ? 1 : 0
+  count = var.backup_policy_id != null && var.backup_role_assignment_enabled ? 1 : 0
 
   principal_id         = data.azurerm_data_protection_backup_vault.main[0].identity[0].principal_id
   scope                = "${data.azurerm_subscription.main.id}/resourceGroups/${azurerm_postgresql_flexible_server.main.resource_group_name}"
@@ -17,7 +17,7 @@ resource "azurerm_role_assignment" "reader" {
 }
 
 resource "azurerm_role_assignment" "main" {
-  count = var.backup_policy_id != null ? 1 : 0
+  count = var.backup_policy_id != null && var.backup_role_assignment_enabled ? 1 : 0
 
   principal_id         = data.azurerm_data_protection_backup_vault.main[0].identity[0].principal_id
   scope                = azurerm_postgresql_flexible_server.main.id

@@ -167,3 +167,9 @@ variable "backup_policy_id" {
   type        = string
   default     = null
 }
+
+variable "backup_role_assignment_enabled" {
+  description = "Whether to create the role assignment for the backup vault."
+  type        = bool
+  default     = true
+}
