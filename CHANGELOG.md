@@ -1,3 +1,16 @@
+## 8.3.0 (2025-07-25)
+
+### Features
+
+* **AZ-1591:** ✨ add backup policy support for PostgreSQL Flexible server df3c416
+* **AZ-1591:** ✨ add backup role assignment toggle for backup vault cda6cf8
+* **AZ-1591:** ✨ add reader role on resource group to backup vault identity 4e145c3
+* **AZ-1591:** ✨ add role assignments and backup vault data source for PostgreSQL Flexible server bcb382f
+
+### Miscellaneous Chores
+
+* **AZ-1591:** apply suggestion 06de3a5
+
 ## 8.2.0 (2025-07-18)
 
 ### Features
