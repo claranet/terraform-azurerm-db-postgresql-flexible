@@ -66,7 +66,7 @@ output "firewall_rules_ids" {
 
 output "configurations" {
   description = "Map of all PostgreSQL configurations."
-  value       = local.configurations
+  value       = local.configurations_outputs
 }
 
 output "terraform_module" {

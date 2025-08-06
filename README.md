@@ -187,6 +187,7 @@ module "postgresql_configuration" {
 | postgresql\_version | Version of PostgreSQL Flexible server. Possible values are in the [documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server#version). | `number` | `16` | no |
 | private\_dns\_zone | ID of the Private DNS Zone to create the PostgreSQL Flexible server. | <pre>object({<br/>    id = string<br/>  })</pre> | `null` | no |
 | public\_network\_access\_enabled | Enable public network access for the PostgreSQL Flexible server. | `bool` | `false` | no |
+| recommended\_configurations\_enabled | Whether to enable recommended configurations for the PostgreSQL Flexible server. | `bool` | `true` | no |
 | resource\_group\_name | Resource Group name. | `string` | n/a | yes |
 | size | Size for PostgreSQL Flexible server SKU. See [documentation](https://docs.microsoft.com/en-us/azure/postgresql/flexible-server/concepts-compute-storage). | `string` | `"D2ds_v4"` | no |
 | stack | Project stack name. | `string` | n/a | yes |

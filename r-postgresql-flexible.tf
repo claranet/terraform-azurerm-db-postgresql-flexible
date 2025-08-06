@@ -119,7 +119,7 @@ moved {
 }
 
 resource "azurerm_postgresql_flexible_server_configuration" "main" {
-  for_each = var.configurations
+  for_each = local.configurations
 
   name      = each.key
   server_id = azurerm_postgresql_flexible_server.main.id

@@ -153,6 +153,13 @@ variable "configurations" {
   default     = {}
 }
 
+variable "recommended_configurations_enabled" {
+  description = "Whether to enable recommended configurations for the PostgreSQL Flexible server."
+  type        = bool
+  default     = true
+  nullable    = false
+}
+
 variable "high_availability" {
   description = "Object of high availability configuration. See [documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server#mode-1)."
   type = object({
