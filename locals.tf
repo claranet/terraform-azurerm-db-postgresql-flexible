@@ -20,7 +20,7 @@ locals {
     "metrics.collector_database_activity"   = "ON"
     "pg_stat_statements.max"                = "10000"
     "pg_stat_statements.track"              = "ALL"
-    "pg_qs.query_cature_mode"               = "TOP"
+    "pg_qs.query_capture_mode"              = "TOP"
     "pgms_wait_sampling.query_capture_mode" = "ALL"
     "track_io_timing"                       = "ON"
   }
