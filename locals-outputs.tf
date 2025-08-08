@@ -11,7 +11,7 @@ locals {
     for key, value in azurerm_postgresql_flexible_server_firewall_rule.main : key => value.id
   }
 
-  configurations = {
+  configurations_outputs = {
     for key, value in azurerm_postgresql_flexible_server_configuration.main : key => value.value
   }
 }
