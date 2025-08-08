@@ -1,3 +1,17 @@
+## 8.4.0 (2025-08-08)
+
+### Features
+
+* **AZ-1602:** ✨ add recommended configurations for PostgreSQL Flexible server e606673
+
+### Bug Fixes
+
+* **AZ-1602:** 🐛 correct typo in query capture mode configuration f9f018f
+
+### Miscellaneous Chores
+
+* **deps:** update tools fbd533a
+
 ## 8.3.0 (2025-07-25)
 
 ### Features
