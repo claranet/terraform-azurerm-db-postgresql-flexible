@@ -61,6 +61,11 @@ variable "storage_tier" {
   description = "The name of storage performance tier for IOPS of the PostgreSQL Flexible Server. Possible values are `P4`, `P6`, `P10`, `P15`, `P20`, `P30`, `P40`, `P50`, `P60`, `P70` or `P80`."
   type        = string
   default     = null
+
+  validation {
+    condition     = var.storage_tier == null || contains(["P4", "P6", "P10", "P15", "P20", "P30", "P40", "P50", "P60", "P70", "P80"], var.storage_tier)
+    error_message = "The `storage_tier` value must be one of `P4`, `P6`, `P10`, `P15`, `P20`, `P30`, `P40`, `P50`, `P60`, `P70`, `P80`, or null."
+  }
 }
 
 variable "auto_grow_enabled" {
