@@ -57,6 +57,12 @@ variable "storage_mb" {
   default     = 32768
 }
 
+variable "storage_tier" {
+  description = "The name of storage performance tier for IOPS of the PostgreSQL Flexible Server. Possible values are `P4`, `P6`, `P10`, `P15`, `P20`, `P30`, `P40`, `P50`, `P60`, `P70` or `P80`."
+  type        = string
+  default     = null
+}
+
 variable "auto_grow_enabled" {
   description = "Enable auto grow for the PostgreSQL Flexible server."
   type        = bool

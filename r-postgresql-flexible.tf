@@ -16,6 +16,7 @@ resource "azurerm_postgresql_flexible_server" "main" {
 
   sku_name          = join("_", [lookup(local.tier_map, var.tier, "GeneralPurpose"), "Standard", var.size])
   storage_mb        = var.storage_mb
+  storage_tier      = var.storage_tier
   auto_grow_enabled = var.auto_grow_enabled
   version           = var.postgresql_version
 
