@@ -144,6 +144,7 @@ module "postgresql_configuration" {
 | [azurerm_postgresql_flexible_server.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server) | resource |
 | [azurerm_postgresql_flexible_server_configuration.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server_configuration) | resource |
 | [azurerm_postgresql_flexible_server_database.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server_database) | resource |
+| [azurerm_postgresql_flexible_server_firewall_rule.azure_services](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server_firewall_rule) | resource |
 | [azurerm_postgresql_flexible_server_firewall_rule.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server_firewall_rule) | resource |
 | [azurerm_role_assignment.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/role_assignment) | resource |
 | [azurerm_role_assignment.reader](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/role_assignment) | resource |
@@ -159,6 +160,7 @@ module "postgresql_configuration" {
 |------|-------------|------|---------|:--------:|
 | administrator\_login | PostgreSQL administrator login. | `string` | n/a | yes |
 | administrator\_password | PostgreSQL administrator password. Strong password definition in the [documentation](https://docs.microsoft.com/en-us/sql/relational-databases/security/strong-passwords?view=sql-server-2017). | `string` | `null` | no |
+| allowed\_azure\_services | Whether to allow Azure services to access the PostgreSQL Flexible server. | `bool` | `false` | no |
 | allowed\_cidrs | Map of allowed CIDRs. | `map(string)` | n/a | yes |
 | authentication | Authentication configuration for the PostgreSQL Flexible server. | <pre>object({<br/>    active_directory_auth_enabled = optional(bool)<br/>    password_auth_enabled         = optional(bool)<br/>    tenant_id                     = optional(string)<br/>  })</pre> | `null` | no |
 | auto\_grow\_enabled | Enable auto grow for the PostgreSQL Flexible server. | `bool` | `false` | no |
