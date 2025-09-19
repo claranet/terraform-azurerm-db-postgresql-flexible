@@ -1,3 +1,27 @@
+## 8.5.0 (2025-09-19)
+
+### Features
+
+* **GH-13:** ✨ add `storage_tier` parameter 596c2f3
+* **GH-9:** ✨ add an option to allow Azure Services access on the PostgreSQL flexible server e3b8d2c
+
+### Styles
+
+* 🎨 rename variable ccc46a2
+* **GH-13:** 🎨 apply MrAI suggestions 92900ba
+
+### Miscellaneous Chores
+
+* **deps:** 🔗 bump AzureRM provider version to v4.31+ f7419c8
+* **deps:** update dependency claranet/diagnostic-settings/azurerm to ~> 8.1.0 d622aeb
+* **deps:** update dependency opentofu to v1.10.6 4b7482c
+* **deps:** update dependency tflint to v0.59.1 ed64651
+* **deps:** update dependency trivy to v0.66.0 80e62b1
+* **deps:** update pre-commit hook pre-commit/pre-commit-hooks to v6 33bf256
+* **deps:** update terraform claranet/diagnostic-settings/azurerm to ~> 8.2.0 1132c81
+* **deps:** update tools 376778f
+* merge branch 'feat/GH-9' into 'feat/GH-13' 662637b
+
 ## 8.4.0 (2025-08-08)
 
 ### Features
