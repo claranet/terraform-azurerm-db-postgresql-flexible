@@ -16,6 +16,7 @@ resource "azurerm_postgresql_flexible_server" "main" {
 
   sku_name          = join("_", [lookup(local.tier_map, var.tier, "GeneralPurpose"), "Standard", var.size])
   storage_mb        = var.storage_mb
+  storage_tier      = var.storage_tier
   auto_grow_enabled = var.auto_grow_enabled
   version           = var.postgresql_version
 
@@ -116,6 +117,17 @@ resource "azurerm_postgresql_flexible_server_firewall_rule" "main" {
 moved {
   from = azurerm_postgresql_flexible_server_firewall_rule.firewall_rules
   to   = azurerm_postgresql_flexible_server_firewall_rule.main
+}
+
+# https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mysql_flexible_server_firewall_rule#example-usage-allow-access-to-azure-services
+# https://learn.microsoft.com/en-us/azure/postgresql/flexible-server/security-firewall-rules#programmatically-manage-firewall-rules
+resource "azurerm_postgresql_flexible_server_firewall_rule" "azure_services" {
+  count = var.delegated_subnet == null && var.azure_services_access_enabled ? 1 : 0
+
+  name             = "Azure-Services"
+  server_id        = azurerm_postgresql_flexible_server.main.id
+  start_ip_address = "0.0.0.0"
+  end_ip_address   = "0.0.0.0"
 }
 
 resource "azurerm_postgresql_flexible_server_configuration" "main" {

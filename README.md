@@ -144,6 +144,7 @@ module "postgresql_configuration" {
 | [azurerm_postgresql_flexible_server.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server) | resource |
 | [azurerm_postgresql_flexible_server_configuration.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server_configuration) | resource |
 | [azurerm_postgresql_flexible_server_database.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server_database) | resource |
+| [azurerm_postgresql_flexible_server_firewall_rule.azure_services](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server_firewall_rule) | resource |
 | [azurerm_postgresql_flexible_server_firewall_rule.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server_firewall_rule) | resource |
 | [azurerm_role_assignment.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/role_assignment) | resource |
 | [azurerm_role_assignment.reader](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/role_assignment) | resource |
@@ -162,6 +163,7 @@ module "postgresql_configuration" {
 | allowed\_cidrs | Map of allowed CIDRs. | `map(string)` | n/a | yes |
 | authentication | Authentication configuration for the PostgreSQL Flexible server. | <pre>object({<br/>    active_directory_auth_enabled = optional(bool)<br/>    password_auth_enabled         = optional(bool)<br/>    tenant_id                     = optional(string)<br/>  })</pre> | `null` | no |
 | auto\_grow\_enabled | Enable auto grow for the PostgreSQL Flexible server. | `bool` | `false` | no |
+| azure\_services\_access\_enabled | Whether to allow Azure services to access the PostgreSQL Flexible server. | `bool` | `false` | no |
 | backup\_policy\_id | Backup Vault policy ID to use for the PostgreSQL Flexible server. | `string` | `null` | no |
 | backup\_retention\_days | Backup retention days for the PostgreSQL Flexible server. Value should be between 7 and 35 days. | `number` | `7` | no |
 | backup\_role\_assignment\_enabled | Whether to create the role assignments for the Backup Vault. | `bool` | `true` | no |
@@ -192,6 +194,7 @@ module "postgresql_configuration" {
 | size | Size for PostgreSQL Flexible server SKU. See [documentation](https://docs.microsoft.com/en-us/azure/postgresql/flexible-server/concepts-compute-storage). | `string` | `"D2ds_v4"` | no |
 | stack | Project stack name. | `string` | n/a | yes |
 | storage\_mb | Storage allowed for PostgresSQL Flexible server. See [documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server#storage_mb). | `number` | `32768` | no |
+| storage\_tier | The name of storage performance tier for IOPS of the PostgreSQL Flexible Server. Possible values are `P4`, `P6`, `P10`, `P15`, `P20`, `P30`, `P40`, `P50`, `P60`, `P70` or `P80`. | `string` | `null` | no |
 | tier | Tier for PostgreSQL Flexible server SKU. See [documentation](https://docs.microsoft.com/en-us/azure/postgresql/flexible-server/concepts-compute-storage). Possible values are: `GeneralPurpose`, `Burstable` and `MemoryOptimized`. | `string` | `"GeneralPurpose"` | no |
 | zone | Specify the Availability Zone for the PostgreSQL Flexible server. | `number` | `1` | no |
 
