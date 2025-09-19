@@ -122,7 +122,7 @@ moved {
 # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mysql_flexible_server_firewall_rule#example-usage-allow-access-to-azure-services
 # https://learn.microsoft.com/en-us/azure/postgresql/flexible-server/security-firewall-rules#programmatically-manage-firewall-rules
 resource "azurerm_postgresql_flexible_server_firewall_rule" "azure_services" {
-  count = var.delegated_subnet == null && var.allowed_azure_services ? 1 : 0
+  count = var.delegated_subnet == null && var.azure_services_access_enabled ? 1 : 0
 
   name             = "Azure-Services"
   server_id        = azurerm_postgresql_flexible_server.main.id

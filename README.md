@@ -160,10 +160,10 @@ module "postgresql_configuration" {
 |------|-------------|------|---------|:--------:|
 | administrator\_login | PostgreSQL administrator login. | `string` | n/a | yes |
 | administrator\_password | PostgreSQL administrator password. Strong password definition in the [documentation](https://docs.microsoft.com/en-us/sql/relational-databases/security/strong-passwords?view=sql-server-2017). | `string` | `null` | no |
-| allowed\_azure\_services | Whether to allow Azure services to access the PostgreSQL Flexible server. | `bool` | `false` | no |
 | allowed\_cidrs | Map of allowed CIDRs. | `map(string)` | n/a | yes |
 | authentication | Authentication configuration for the PostgreSQL Flexible server. | <pre>object({<br/>    active_directory_auth_enabled = optional(bool)<br/>    password_auth_enabled         = optional(bool)<br/>    tenant_id                     = optional(string)<br/>  })</pre> | `null` | no |
 | auto\_grow\_enabled | Enable auto grow for the PostgreSQL Flexible server. | `bool` | `false` | no |
+| azure\_services\_access\_enabled | Whether to allow Azure services to access the PostgreSQL Flexible server. | `bool` | `false` | no |
 | backup\_policy\_id | Backup Vault policy ID to use for the PostgreSQL Flexible server. | `string` | `null` | no |
 | backup\_retention\_days | Backup retention days for the PostgreSQL Flexible server. Value should be between 7 and 35 days. | `number` | `7` | no |
 | backup\_role\_assignment\_enabled | Whether to create the role assignments for the Backup Vault. | `bool` | `true` | no |

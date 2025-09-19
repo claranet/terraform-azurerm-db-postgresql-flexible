@@ -158,7 +158,7 @@ variable "allowed_cidrs" {
   type        = map(string)
 }
 
-variable "allowed_azure_services" {
+variable "azure_services_access_enabled" {
   description = "Whether to allow Azure services to access the PostgreSQL Flexible server."
   type        = bool
   default     = false
