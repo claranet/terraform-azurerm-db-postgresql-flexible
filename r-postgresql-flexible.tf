@@ -64,10 +64,6 @@ resource "azurerm_postgresql_flexible_server" "main" {
       zone
     ]
     precondition {
-      condition     = var.private_dns_zone != null && var.delegated_subnet != null || var.private_dns_zone == null && var.delegated_subnet == null
-      error_message = "var.private_dns_zone and var.delegated_subnet should either both be set or none of them."
-    }
-    precondition {
       condition     = (var.tier != "Burstable") || (var.tier == "Burstable" && var.high_availability == null)
       error_message = "var.high_availability should be null for Burstable tier."
     }
