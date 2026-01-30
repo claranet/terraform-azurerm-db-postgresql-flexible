@@ -1,3 +1,29 @@
+## 8.6.0 (2026-01-30)
+
+### Features
+
+* remove blocking condition to let the provider do its job 2bdeb90
+
+### Miscellaneous Chores
+
+* **deps:** update dependency opentofu to v1.10.7 2924aa3
+* **deps:** update dependency opentofu to v1.11.2 cca4be5
+* **deps:** update dependency opentofu to v1.11.3 bf7a3a9
+* **deps:** update dependency opentofu to v1.11.4 07ff0fc
+* **deps:** update dependency pre-commit to v4.4.0 446c54e
+* **deps:** update dependency pre-commit to v4.5.0 53cdf00
+* **deps:** update dependency pre-commit to v4.5.1 dc2defe
+* **deps:** update dependency tflint to v0.60.0 7c1645a
+* **deps:** update dependency trivy to v0.67.1 4e36e7d
+* **deps:** update dependency trivy to v0.67.2 5770a69
+* **deps:** update dependency trivy to v0.68.1 8b0bbb3
+* **deps:** update dependency trivy to v0.68.2 ce3e078
+* **deps:** update pre-commit hook crate-ci/committed to v1.1.10 3e0eaad
+* **deps:** update pre-commit hook crate-ci/committed to v1.1.8 31624c9
+* **deps:** update pre-commit hook crate-ci/committed to v1.1.9 647e37c
+* **deps:** update pre-commit hook tofuutils/pre-commit-opentofu to v2.2.2 7a75a9e
+* **deps:** update tools 963bbc6
+
 ## 8.5.1 (2025-09-30)
 
 ### Code Refactoring
