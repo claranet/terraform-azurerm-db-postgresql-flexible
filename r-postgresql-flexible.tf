@@ -67,6 +67,7 @@ resource "azurerm_postgresql_flexible_server" "main" {
       condition     = (var.tier != "Burstable") || (var.tier == "Burstable" && var.high_availability == null)
       error_message = "var.high_availability should be null for Burstable tier."
     }
+    prevent_destroy = true
   }
 }
 
