@@ -1,3 +1,17 @@
+## 8.6.1 (2026-02-25)
+
+### Code Refactoring
+
+* **gitlab MR template:** ♻️ update default reviewers group with Azure Factory 🔧 070d484
+
+### Miscellaneous Chores
+
+* **deps:** 🔗 bump tflint rules and example eb4f876
+* **deps:** update dependency tflint to v0.61.0 b897316
+* **deps:** update dependency trivy to v0.69.0 90074f0
+* **deps:** update dependency trivy to v0.69.1 2fac420
+* **deps:** update pre-commit hook crate-ci/committed to v1.1.11 34e3f12
+
 ## 8.6.0 (2026-01-30)
 
 ### Features
