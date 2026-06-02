@@ -1,21 +1,25 @@
 output "resource" {
   description = "Azure PostgreSQL server resource object."
   value       = azurerm_postgresql_flexible_server.main
+  sensitive   = true
 }
 
 output "resource_database" {
   description = "Azure PostgreSQL database resource object."
   value       = azurerm_postgresql_flexible_server_database.main
+  sensitive   = true
 }
 
 output "resource_configuration" {
   description = "Azure PostgreSQL configuration resource object."
   value       = azurerm_postgresql_flexible_server_configuration.main
+  sensitive   = true
 }
 
 output "resource_firewall_rule" {
   description = "Azure PostgreSQL server firewall rule resource object."
   value       = azurerm_postgresql_flexible_server_firewall_rule.main
+  sensitive   = true
 }
 
 output "module_diagnostics" {
