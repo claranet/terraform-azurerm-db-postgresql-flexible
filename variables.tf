@@ -217,3 +217,17 @@ variable "backup_role_assignment_enabled" {
   type        = bool
   default     = true
 }
+
+variable "identity" {
+  description = "Identity block for the PostgreSQL Flexible server. Supports `SystemAssigned`, `UserAssigned`, or `SystemAssigned, UserAssigned` types. See [documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server#identity)."
+  type = object({
+    type         = string
+    identity_ids = optional(list(string))
+  })
+  default = null
+
+  validation {
+    condition     = var.identity == null || contains(["SystemAssigned", "UserAssigned", "SystemAssigned, UserAssigned"], var.identity.type)
+    error_message = "The `identity.type` value must be one of `SystemAssigned`, `UserAssigned`, or `SystemAssigned, UserAssigned`."
+  }
+}
