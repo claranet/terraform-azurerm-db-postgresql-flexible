@@ -28,6 +28,10 @@ resource "azurerm_postgresql_flexible_server" "main" {
   backup_retention_days        = var.backup_retention_days
   geo_redundant_backup_enabled = var.geo_redundant_backup_enabled
 
+  create_mode                       = var.create_mode
+  source_server_id                  = var.source_server_id
+  point_in_time_restore_time_in_utc = var.point_in_time_restore_time_in_utc
+
   dynamic "high_availability" {
     for_each = var.high_availability[*]
     content {
