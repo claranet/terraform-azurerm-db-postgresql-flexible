@@ -1,3 +1,25 @@
+## 8.7.0 (2026-07-17)
+
+### Features
+
+* **GH-14:** add identity management support 77340f8
+* introduce create_mode option 80a2789
+
+### Bug Fixes
+
+* **tflint:** 🐛 bump Azure rules version, fix signature bug 55740ce
+
+### Miscellaneous Chores
+
+* **deps:** update dependency opentofu to v1.12.1 584f3c2
+* **deps:** update dependency opentofu to v1.12.2 0872689
+* **deps:** update dependency opentofu to v1.12.3 8d38e96
+* **deps:** update dependency tflint to v0.63.1 9693e0c
+* **deps:** update pre-commit hook tofuutils/pre-commit-opentofu to v2.4.0 2e07428
+* **deps:** update pre-commit hook tofuutils/pre-commit-opentofu to v2.4.1 63b5386
+* **deps:** update pre-commit hook tofuutils/pre-commit-opentofu to v2.4.2 b9e979c
+* **deps:** update tools cb687ce
+
 ## 8.6.3 (2026-06-02)
 
 ### Bug Fixes
