@@ -29,8 +29,9 @@ variable "resource_group_name" {
 }
 
 variable "administrator_login" {
-  description = "PostgreSQL administrator login."
+  description = "PostgreSQL administrator login. Required when `create_mode = \"Default\"`."
   type        = string
+  default     = null
 }
 
 variable "administrator_password" {
@@ -176,6 +177,24 @@ variable "recommended_configurations_enabled" {
   type        = bool
   default     = true
   nullable    = false
+}
+
+variable "create_mode" {
+  description = "The creation mode which can be used to restore or replicate existing servers. Possible values are `Default`, `GeoRestore`, `PointInTimeRestore`, `Replica`, `ReviveDropped` and `Update`."
+  type        = string
+  default     = "Default"
+}
+
+variable "source_server_id" {
+  description = "The resource ID of the source PostgreSQL Flexible server to be restored. Required when `create_mode` is `GeoRestore`, `PointInTimeRestore` or `Replica`."
+  type        = string
+  default     = null
+}
+
+variable "point_in_time_restore_time_in_utc" {
+  description = "The point in time to restore from `source_server_id` when `create_mode` is `GeoRestore` or `PointInTimeRestore`. Changing this forces a new PostgreSQL Flexible server to be created."
+  type        = string
+  default     = null
 }
 
 variable "high_availability" {

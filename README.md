@@ -158,7 +158,7 @@ module "postgresql_configuration" {
 
 | Name | Description | Type | Default | Required |
 | ---- | ----------- | ---- | ------- | :------: |
-| administrator\_login | PostgreSQL administrator login. | `string` | n/a | yes |
+| administrator\_login | PostgreSQL administrator login. Required when `create_mode = "Default"`. | `string` | `null` | no |
 | administrator\_password | PostgreSQL administrator password. Strong password definition in the [documentation](https://docs.microsoft.com/en-us/sql/relational-databases/security/strong-passwords?view=sql-server-2017). | `string` | `null` | no |
 | allowed\_cidrs | Map of allowed CIDRs. | `map(string)` | n/a | yes |
 | authentication | Authentication configuration for the PostgreSQL Flexible server. | <pre>object({<br/>    active_directory_auth_enabled = optional(bool)<br/>    password_auth_enabled         = optional(bool)<br/>    tenant_id                     = optional(string)<br/>  })</pre> | `null` | no |
@@ -169,6 +169,7 @@ module "postgresql_configuration" {
 | backup\_role\_assignment\_enabled | Whether to create the role assignments for the Backup Vault. | `bool` | `true` | no |
 | client\_name | Client name/account used in naming. | `string` | n/a | yes |
 | configurations | PostgreSQL configuration values to set on the PostgreSQL Flexible server. | `map(string)` | `{}` | no |
+| create\_mode | The creation mode which can be used to restore or replicate existing servers. Possible values are `Default`, `GeoRestore`, `PointInTimeRestore`, `Replica`, `ReviveDropped` and `Update`. | `string` | `"Default"` | no |
 | custom\_name | Custom server name. | `string` | `""` | no |
 | databases | Map of databases configurations with database name as key and following available configuration option:<br/>   *  (optional) charset: Valid PostgreSQL charset : https://www.postgresql.org/docs/current/multibyte.html#CHARSET-TABLE<br/>   *  (optional) collation: Valid PostgreSQL collation : http://www.postgresql.cn/docs/13/collation.html - be careful about https://docs.microsoft.com/en-us/windows/win32/intl/locale-names?redirectedfrom=MSDN | <pre>map(object({<br/>    charset   = optional(string, "UTF8")<br/>    collation = optional(string, "en_US.utf8")<br/>  }))</pre> | `{}` | no |
 | default\_tags\_enabled | Option to enable or disable default tags. | `bool` | `true` | no |
@@ -186,12 +187,14 @@ module "postgresql_configuration" {
 | maintenance\_window | Map of maintenance window configuration. | <pre>object({<br/>    day_of_week  = optional(number, 0)<br/>    start_hour   = optional(number, 0)<br/>    start_minute = optional(number, 0)<br/>  })</pre> | `null` | no |
 | name\_prefix | Optional prefix for the generated name. | `string` | `""` | no |
 | name\_suffix | Optional suffix for the generated name. | `string` | `""` | no |
+| point\_in\_time\_restore\_time\_in\_utc | The point in time to restore from `source_server_id` when `create_mode` is `GeoRestore` or `PointInTimeRestore`. Changing this forces a new PostgreSQL Flexible server to be created. | `string` | `null` | no |
 | postgresql\_version | Version of PostgreSQL Flexible server. Possible values are in the [documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server#version). | `number` | `16` | no |
 | private\_dns\_zone | ID of the Private DNS Zone to create the PostgreSQL Flexible server. | <pre>object({<br/>    id = string<br/>  })</pre> | `null` | no |
 | public\_network\_access\_enabled | Enable public network access for the PostgreSQL Flexible server. | `bool` | `false` | no |
 | recommended\_configurations\_enabled | Whether to enable recommended configurations for the PostgreSQL Flexible server. | `bool` | `true` | no |
 | resource\_group\_name | Resource Group name. | `string` | n/a | yes |
 | size | Size for PostgreSQL Flexible server SKU. See [documentation](https://docs.microsoft.com/en-us/azure/postgresql/flexible-server/concepts-compute-storage). | `string` | `"D2ds_v4"` | no |
+| source\_server\_id | The resource ID of the source PostgreSQL Flexible server to be restored. Required when `create_mode` is `GeoRestore`, `PointInTimeRestore` or `Replica`. | `string` | `null` | no |
 | stack | Project stack name. | `string` | n/a | yes |
 | storage\_mb | Storage allowed for PostgresSQL Flexible server. See [documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server#storage_mb). | `number` | `32768` | no |
 | storage\_tier | The name of storage performance tier for IOPS of the PostgreSQL Flexible Server. Possible values are `P4`, `P6`, `P10`, `P15`, `P20`, `P30`, `P40`, `P50`, `P60`, `P70` or `P80`. | `string` | `null` | no |
