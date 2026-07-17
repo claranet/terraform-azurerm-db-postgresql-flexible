@@ -58,6 +58,17 @@ resource "azurerm_postgresql_flexible_server" "main" {
     }
   }
 
+  dynamic "identity" {
+    for_each = var.identity[*]
+    content {
+      type = identity.value.type
+      identity_ids = contains(
+        ["UserAssigned", "SystemAssigned, UserAssigned"],
+        identity.value.type
+      ) ? identity.value.identity_ids : null
+    }
+  }
+
   zone = var.zone
 
   tags = merge(local.default_tags, var.extra_tags)
