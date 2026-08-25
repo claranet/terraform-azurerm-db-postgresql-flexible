@@ -43,10 +43,9 @@ resource "azurerm_private_dns_zone" "postgres" {
 }
 
 resource "azurerm_private_dns_zone_virtual_network_link" "postgres" {
-  name                  = format("%s_dns_zone_postgres_%s", var.stack, var.environment)
-  resource_group_name   = module.rg.name
-  private_dns_zone_name = azurerm_private_dns_zone.postgres.name
-  virtual_network_id    = module.vnet.id
+  name                = format("%s_dns_zone_postgres_%s", var.stack, var.environment)
+  private_dns_zone_id = azurerm_private_dns_zone.postgres.id
+  virtual_network_id  = module.vnet.id
 }
 
 module "postgresql_flexible" {
@@ -59,7 +58,7 @@ module "postgresql_flexible" {
   environment    = var.environment
   stack          = var.stack
 
-  resource_group_name = azurerm_private_dns_zone_virtual_network_link.postgres.resource_group_name
+  resource_group_name = module.rg.name
 
   tier               = "GeneralPurpose"
   size               = "D2s_v3"
