@@ -1,3 +1,31 @@
+## 9.0.0 (2026-08-25)
+
+### ⚠ BREAKING CHANGES
+
+* **SREAA-368:** requires OpenTofu >= 1.12 and AzureRM provider ~> 5.0.
+Consumers pinning claranet/diagnostic-settings/azurerm must also upgrade to
+its 9.x release. No AzureRM resource-level breaking changes apply to this
+module's own resources per the 5.0 upgrade guide.
+
+### Features
+
+* **SREAA-368:** upgrade module to v9 (OpenTofu >= 1.12, AzureRM ~> 5.0) 53a5c63
+
+### Bug Fixes
+
+* **SREAA-368:** 🐛 migrate the private DNS zone link in the delegated_subnet example 2ab265d
+
+### Continuous Integration
+
+* **SREAA-368:** 👷 point the pipeline include back at the ci master branch 7cfb657
+
+### Miscellaneous Chores
+
+* **deps:** update dependency opentofu to v1.12.4 bb2a967
+* **deps:** update dependency tflint to v0.64.0 0fe4577
+* **SREAA-368:** 🔗 bump azurecaf to ~> 1.3.0 and resync the ci template files ec07b8e
+* **v9:** 🐛 synchronize common files and docs 8f1fc44
+
 ## 8.7.0 (2026-07-17)
 
 ### Features
